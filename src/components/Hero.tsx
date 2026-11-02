@@ -3,8 +3,8 @@ import React from 'react';
 export const Hero: React.FC = () => {
   return (
     <header id="h-hero">
-      {/* Centered Graphic Heading Logo */}
-      <div className="heading">
+      {/* Centered Graphic Heading Logo with Intro Animation */}
+      <div className="heading intro-hero-heading">
         <svg viewBox="0 0 506 210" fill="none" xmlns="http://www.w3.org/2000/svg">
           <text
             x="50%"
@@ -22,9 +22,9 @@ export const Hero: React.FC = () => {
         </svg>
       </div>
 
-      {/* Mask Split Content */}
+      {/* Mask Split Content with Staggered Intro Animation */}
       <div className="mask">
-        <div className="bottom-l">
+        <div className="bottom-l intro-hero-left">
           <h1>Kunsang Dorjay</h1>
           <p>
             <a href="mailto:kunsang@teeor.com" target="_blank" rel="noreferrer">
@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
           </h2>
         </div>
 
-        <div className="bottom-r">
+        <div className="bottom-r intro-hero-right">
           <h3 className="f-7">
             <div className="line">
               <div>(teeor)</div>

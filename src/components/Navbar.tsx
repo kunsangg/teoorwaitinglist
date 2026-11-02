@@ -10,19 +10,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onScrollTo }) => {
       <ul>
         <div className="nav-left">
           <li>
-            <a onClick={() => onScrollTo('s-bio')}>Bio</a>
-          </li>
-          <li>
             <a onClick={() => onScrollTo('s-work')}>Work</a>
-          </li>
-          <li>
-            <a onClick={() => onScrollTo('s-contact')}>Contact</a>
           </li>
         </div>
 
         <div className="nav-right">
           <li>
-            <a onClick={() => onScrollTo('s-contact')}>Join Pilot (10 Firms) →</a>
+            <a onClick={() => onScrollTo('s-contact')}>Apply Now →</a>
           </li>
         </div>
       </ul>

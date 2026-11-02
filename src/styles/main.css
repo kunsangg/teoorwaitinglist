@@ -1,6 +1,6 @@
 /* ==========================================================================
    Teeor — 1:1 Replicated Design System from alitwotimes.com
-   Typography, Layout, Grid, Micro-Interactions & Noise Overlay
+   Typography, Layout, Grid, Micro-Interactions, Noise & Intro Animations
    ========================================================================== */
 
 @font-face {
@@ -47,6 +47,17 @@
 @keyframes spinning {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes introFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body::before {
@@ -99,6 +110,21 @@ body {
 ::selection {
   background: var(--ink-color);
   color: var(--bg-color);
+}
+
+/* ==========================================================================
+   Scroll-Triggered Reveal Animations
+   ========================================================================== */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ==========================================================================
@@ -179,11 +205,6 @@ body {
   body {
     font-size: 3.889vw;
     line-height: 5.833vw;
-  }
-  .f-2 {
-    font-size: 17.778vw;
-    line-height: 16.667vw;
-    letter-spacing: -0.07em;
   }
   .f-4 {
     font-size: 8.333vw;
@@ -285,7 +306,7 @@ a {
 }
 
 /* ==========================================================================
-   Hero Section (#h-hero)
+   Hero Section (#h-hero) with Intro Animations
    ========================================================================== */
 #h-hero {
   width: 100%;
@@ -313,6 +334,18 @@ a {
   width: 34.722vw;
   margin-left: auto;
   display: block;
+}
+
+.intro-hero-heading {
+  animation: introFadeUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-hero-left {
+  animation: introFadeUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.intro-hero-right {
+  animation: introFadeUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
 }
 
 #h-hero .mask {
@@ -442,6 +475,7 @@ a {
 #s-work {
   width: 100%;
   position: relative;
+  margin-top: 4vw;
 }
 
 #s-work .head {
@@ -609,86 +643,8 @@ a {
 }
 
 /* ==========================================================================
-   Editorial Bio / Mission Section (#s-bio)
-   Dark Theme matching alitwotimes.com/bio/
-   ========================================================================== */
-#s-bio {
-  width: 100%;
-  background: var(--dark-bg);
-  color: var(--light-ink);
-  padding: 10.417vw 6.25vw;
-  margin: 8.333vw 0 0;
-  position: relative;
-}
-
-#s-bio .head {
-  margin-bottom: 4.167vw;
-}
-
-#s-bio .bio-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1.8fr;
-  gap: 6.25vw;
-}
-
-#s-bio .quote-box {
-  border-left: 2px solid var(--light-ink);
-  padding-left: 1.8vw;
-  margin: 2vw 0 4vw 0;
-}
-
-#s-bio .stats-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2vw;
-  margin-top: 3vw;
-}
-
-#s-bio .stat-item strong {
-  font-size: 2.5vw;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  display: block;
-}
-
-#s-bio .stat-item span {
-  font-size: 0.9vw;
-  opacity: 0.65;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-#s-bio .narrative p {
-  font-size: 1.35vw;
-  line-height: 1.6;
-  opacity: 0.88;
-  margin-bottom: 2.2vw;
-}
-
-@media only screen and (max-width: 580px) {
-  #s-bio {
-    padding: 16vw 8.33vw;
-    margin: 16vw 0 0;
-  }
-  #s-bio .bio-grid {
-    grid-template-columns: 1fr;
-    gap: 12vw;
-  }
-  #s-bio .stat-item strong {
-    font-size: 7vw;
-  }
-  #s-bio .stat-item span {
-    font-size: 3vw;
-  }
-  #s-bio .narrative p {
-    font-size: 4vw;
-    line-height: 6vw;
-  }
-}
-
-/* ==========================================================================
    Contact Section (#s-contact)
-   Exact alitwotimes.com layout & micro-interactions
+   Adjusted "GET IN TOUCH" Heading (Visible & Never Cut Off)
    ========================================================================== */
 #s-contact {
   margin: 10.417vw 6.25vw 6vw;
@@ -700,28 +656,37 @@ a {
 }
 
 #s-contact .heading {
-  margin: 0 0 5vw 22.153vw;
+  margin: 0 0 5vw 0;
 }
 
-#s-contact .f-2 {
-  white-space: nowrap;
-  letter-spacing: -0.06em;
+/* Adjusted Responsive "GET IN TOUCH" Heading */
+.contact-display-title {
+  font-family: var(--font-family);
+  font-size: clamp(38px, 8.5vw, 114px);
+  line-height: 0.95;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
   position: relative;
   display: inline-block;
+  margin: 0;
+  white-space: normal;
+  max-width: 100%;
 }
 
-#s-contact .f-2::before {
+.contact-display-title::before {
   left: 0;
-  width: 66vw;
+  bottom: -1.2vw;
+  width: 100%;
+  max-width: 580px;
   height: 3px;
-  bottom: -1.5vw;
   background: #100f0f;
   content: '';
   position: absolute;
 }
 
 #s-contact .quote {
-  margin: 0 0 5.556vw 22.153vw;
+  margin: 0 0 5.556vw 0;
 }
 
 #s-contact .quote h3 {
@@ -729,7 +694,7 @@ a {
 }
 
 #s-contact .locations {
-  margin: 0 22vw 6vw 22.153vw;
+  margin: 0 0 6vw 0;
   border-top: 1px solid rgba(16, 15, 15, 0.15);
 }
 
@@ -809,87 +774,194 @@ a {
   font-size: 1.2vw;
 }
 
-/* Integrated Pilot Form (Minimalist Editorial Architecture) */
-.pilot-form-container {
-  margin: 0 22vw 0 22.153vw;
-  padding-top: 3vw;
+/* ==========================================================================
+   Claude Startups Inspired Separated Pilot Box Section
+   (Inspired by https://claude.com/programs/startups & media_1793643791484_9079718f.png)
+   ========================================================================== */
+.claude-pilot-section {
+  margin: 6vw 0 0 0;
+  background: #0d0d0c;
+  color: #fcf6f4;
+  border-radius: 20px;
+  padding: clamp(32px, 5vw, 64px);
+  position: relative;
+  overflow: hidden;
 }
 
-.pilot-form-grid {
+.claude-pilot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 5vw;
+  align-items: center;
+}
+
+.claude-pilot-heading {
+  font-family: var(--font-family);
+  font-size: clamp(28px, 3.2vw, 48px);
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0 0 16px 0;
+  color: #ffffff;
+}
+
+.claude-pilot-sub {
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.55;
+  color: #a1a1aa;
+  margin-bottom: 28px;
+}
+
+.claude-pilot-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.claude-pilot-features .feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(12px, 0.95vw, 14px);
+  color: #d4d4d8;
+}
+
+.claude-pilot-features .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+/* The Separated Box Container */
+.claude-pilot-box {
+  background: #171716;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: clamp(24px, 3.2vw, 40px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.claude-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5vw;
+  gap: 16px;
 }
 
-.pilot-form-group {
+.input-group {
   display: flex;
   flex-direction: column;
 }
 
-.pilot-form-group.full-width {
-  grid-column: 1 / -1;
-}
-
-.pilot-label {
-  font-size: 0.85vw;
+.field-label {
+  font-size: 12px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.6vw;
-  color: var(--ink-color);
+  color: #d4d4d8;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
 }
 
-.pilot-input, .pilot-select {
+.claude-input, .claude-select {
+  background: #0e0e0d;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 12px 16px;
   font-family: inherit;
-  font-size: 1.15vw;
-  padding: 0.8vw 0;
-  border: none;
-  border-bottom: 1px solid var(--ink-color);
-  background: transparent;
-  color: var(--ink-color);
+  font-size: 14px;
   outline: none;
-  border-radius: 0;
-  transition: border-bottom-width 0.2s;
+  transition: border-color 0.2s;
 }
 
-.pilot-input:focus, .pilot-select:focus {
-  border-bottom: 2px solid var(--ink-color);
+.claude-input:focus, .claude-select:focus {
+  border-color: #ffffff;
 }
 
-.pilot-submit-btn {
-  background: var(--ink-color);
-  color: var(--bg-color);
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #a1a1aa;
+  margin-top: 4px;
+}
+
+.checkbox-row input {
+  accent-color: #ffffff;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.claude-submit-btn {
+  background: #ffffff;
+  color: #0e0e0d;
   border: none;
-  padding: 1.2vw 2.4vw;
+  border-radius: 8px;
+  padding: 14px 28px;
   font-family: var(--font-family);
-  font-size: 1vw;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 1vw;
-  margin-top: 2vw;
-  transition: opacity 0.2s ease;
+  justify-content: center;
+  margin-top: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 100%;
 }
 
-.pilot-submit-btn:hover {
-  opacity: 0.9;
+.claude-submit-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
-@media only screen and (max-width: 580px) {
+.submitted-view {
+  text-align: center;
+  padding: 24px 12px;
+}
+
+.check-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0e0e0d;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.whatsapp-notice {
+  background: #0e0e0d;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #d4d4d8;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
   #s-contact {
     margin: 16vw 8.33vw;
   }
-  #s-contact .heading,
-  #s-contact .quote,
-  #s-contact .locations,
-  .pilot-form-container {
-    margin-left: 0;
-    margin-right: 0;
+  .contact-display-title {
+    font-size: 12vw;
   }
-  #s-contact .f-2::before {
+  .contact-display-title::before {
+    bottom: -2vw;
     width: 100%;
   }
   #s-contact .location {
@@ -912,22 +984,12 @@ a {
   #s-contact .location li {
     font-size: 3.5vw;
   }
-  .pilot-form-grid {
+  .claude-pilot-grid {
     grid-template-columns: 1fr;
-    gap: 5vw;
+    gap: 8vw;
   }
-  .pilot-label {
-    font-size: 3vw;
-  }
-  .pilot-input, .pilot-select {
-    font-size: 4.2vw;
-    padding: 2vw 0;
-  }
-  .pilot-submit-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 4vw;
-    font-size: 3.8vw;
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { WorkSection, WorkflowItem } from './components/WorkSection';
-import { BioSection } from './components/BioSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { PlayerModal } from './components/PlayerModal';
@@ -26,14 +25,13 @@ export default function App() {
 
   return (
     <div className="a-main" id="a-main">
-      {/* alitwotimes.com Floating Navigation Bar */}
+      {/* Floating Navigation: Work & Apply Now */}
       <Navbar onScrollTo={handleScrollTo} />
 
       {/* Main Page Content */}
       <main id="a-scroll">
         <Hero />
         <WorkSection onSelectWorkflow={(item) => setSelectedWorkflow(item)} />
-        <BioSection />
         <ContactSection />
         <Footer />
       </main>

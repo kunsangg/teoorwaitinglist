@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export interface WorkflowItem {
   id: string;
@@ -60,32 +60,52 @@ interface WorkSectionProps {
 }
 
 export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectWorkflow }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll('.reveal-up');
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="s-work">
-      <div className="head">
+    <section id="s-work" ref={sectionRef}>
+      <div className="head reveal-up">
         <h2 className="f-8">Selected Work</h2>
       </div>
 
       <div className="projects">
         {/* Row 1: l-d (Full Width) */}
-        <div className="row l-d">
+        <div className="row l-d reveal-up">
           {renderBlock(WORKFLOWS[0], onSelectWorkflow)}
         </div>
 
         {/* Row 2: l-c (Asymmetric 2-Column: 7 / 5) */}
-        <div className="row l-c">
+        <div className="row l-c reveal-up">
           {renderBlock(WORKFLOWS[1], onSelectWorkflow)}
           {renderBlock(WORKFLOWS[2], onSelectWorkflow)}
         </div>
 
         {/* Row 3: l-b (Inverted 2-Column: 5 / 7) */}
-        <div className="row l-b">
+        <div className="row l-b reveal-up">
           {renderBlock(WORKFLOWS[3], onSelectWorkflow)}
           {renderBlock(WORKFLOWS[4], onSelectWorkflow)}
         </div>
 
         {/* Row 4: l-d (Full Width) */}
-        <div className="row l-d">
+        <div className="row l-d reveal-up">
           {renderBlock(WORKFLOWS[5], onSelectWorkflow)}
         </div>
       </div>
