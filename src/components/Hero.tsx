@@ -11,9 +11,9 @@ export const Hero: React.FC = () => {
       {/* Split Bottom Content */}
       <div className="hero-split">
         <div className="hero-left">
-          <div className="founder-tag">Saksham Pradhan · Founder</div>
+          <div className="founder-tag">Kunsang Dorjay · Founder</div>
           <div className="founder-mail">
-            <a href="mailto:founders@teeor.com">founders@teeor.com</a>
+            <a href="mailto:kunsang@teeor.com">kunsang@teeor.com</a>
           </div>
           <div className="hero-display-sub">
             TAX AGENTS

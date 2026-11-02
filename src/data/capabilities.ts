@@ -1,162 +1,205 @@
-export interface Capability {
+export interface DomainWorkflow {
   id: string;
   slug: string;
   category: string;
   title: string;
-  subtitle: string;
-  description: string;
+  domain: string;
   tag: string;
-  layoutClass: string; // 'l-d' | 'l-c' | 'l-b' | 'l-e'
-  client: string;
-  module: string;
-  forms: string[];
-  impact: string;
-  videoUrl?: string;
-  posterBg: string;
+  layoutClass: 'l-d' | 'l-c' | 'l-b';
   accentColor: string;
+  posterBg: string;
   previewBadges: string[];
+  forms: string[];
+  
+  // CA Domain Explanation
+  problemSummary: string;
+  problemDetails: string;
+  howToolWorks: string;
+  howItFixesThat: string;
+  caBenefits: string[];
+  roiMetric: string;
+  
+  // Custom image or diagram support
+  imageUrl?: string;
 }
 
-export const CAPABILITIES: Capability[] = [
+export const CAPABILITIES: DomainWorkflow[] = [
   {
     id: 'gst-recon',
     slug: 'autonomous-gst-reconciliation',
     category: 'Agent Engine (01)',
     title: 'Autonomous GST Reconciliation',
-    subtitle: 'GSTR-2B vs. Tally & Books Matching',
-    description: 'Matches tens of thousands of purchase register lines against live GST portal returns in seconds. Automatically tolerates vendor typos, missing prefixes, date shifts, and multi-line split invoices while flagging exact rupee mismatch causes.',
+    domain: 'GSTR-2B vs. Books Multi-Pass Match',
     tag: 'Core Reconciliation',
     layoutClass: 'l-d',
-    client: 'CA Practice Suite',
-    module: 'Purchase ITC Engine',
-    forms: ['GSTR-2B', 'GSTR-3B', 'Purchase Register (Excel/Tally)'],
-    impact: 'Cuts 80% of manual Excel VLOOKUP hours per client',
-    posterBg: 'linear-gradient(135deg, #182230 0%, #0c111d 100%)',
     accentColor: '#10b981',
-    previewBadges: ['99.4% Auto-Match', 'Tolerance Engine', 'Zero Discrepancy ITC']
+    posterBg: 'linear-gradient(135deg, #15222e 0%, #0c1219 100%)',
+    previewBadges: ['99.4% Match Rate', 'Tolerance Engine', 'Zero Discrepancy ITC'],
+    forms: ['GSTR-2B', 'GSTR-3B', 'Purchase Register (Tally/Zoho/Excel)'],
+    problemSummary: 'Spreadsheets break on invoice typos, truncated numbers, and date shifts. Provisional credit is gone, so every mismatch freezes working capital.',
+    problemDetails: 'Staff at CA firms spend 20+ hours per client each month running VLOOKUPs between client purchase ledgers and the GST portal GSTR-2B. A single typo in an invoice number (e.g. INV-089 vs 089) or a 3-day date shift causes false mismatch flags, blocking eligible Input Tax Credit (ITC) and exposing clients to 18% statutory interest penalties.',
+    howToolWorks: 'Teeor ingests raw purchase registers (Tally XML, Excel) and live GSTR-2B data via licensed GSP connectors. An AI-powered tolerance engine runs multi-pass reconciliation: exact alphanumeric match, typo tolerance, date drift allowances (+/- 7 days), and multi-invoice split allocations.',
+    howItFixesThat: 'Reconciles 10,000+ line items in under 30 seconds. Automatically classifies and explains mismatch causes (Supplier Unfiled, Value Variance, Rate Discrepancy) and pre-populates correcting ledger entries for staff review.',
+    caBenefits: [
+      'Eliminates 80% of manual Excel matching hours before the 20th deadline',
+      'Secures 100% of eligible ITC before monthly return filing',
+      'Zero formula errors or broken spreadsheet macros'
+    ],
+    roiMetric: 'Saves 18–25 staff hours per 100 client invoices monthly'
   },
   {
     id: 'notice-defense',
     slug: 'notice-defense-agent',
     category: 'Legal Workflow (02)',
     title: 'Notice Defense Agent',
-    subtitle: 'Automated ASMT-10 & DRC-01C Replies',
-    description: 'When automated GSTN analytics issue scrutiny notices, the agent parses the demand, cross-references historical supplier filings, compiles supporting invoice evidence, and drafts a statutory reply in the department’s expected format for CA sign-off.',
-    tag: 'Notice Handling',
+    domain: 'Automated DRC-01C & ASMT-10 Reply Drafting',
+    tag: 'Notice Defense',
     layoutClass: 'l-c',
-    client: 'Litigation & Scrutiny Practice',
-    module: 'Statutory Defense Agent',
-    forms: ['ASMT-10', 'DRC-01C', 'DRC-01B', 'Form GST DRC-06'],
-    impact: 'Reduces notice response turnaround from 4 days to 15 minutes',
-    posterBg: 'linear-gradient(135deg, #2b1f1d 0%, #171110 100%)',
     accentColor: '#f97316',
-    previewBadges: ['DRC-01C Defense', 'Evidence Assembler', 'CA Review Required']
+    posterBg: 'linear-gradient(135deg, #2a1d1b 0%, #150f0e 100%)',
+    previewBadges: ['DRC-01C Defense', 'Evidence Compiler', 'CA Review Screen'],
+    forms: ['ASMT-10', 'DRC-01C', 'DRC-01B', 'Form GST DRC-06'],
+    problemSummary: 'Automated GSTN analytics trigger scrutiny notices with strict deadlines. Drafting replies by hand is time-consuming and prone to legal oversight.',
+    problemDetails: 'The GST portal now automatically scans returns and shoots scrutiny notices whenever claimed ITC exceeds GSTR-2B. When a notice arrives, CA staff must scramble through historical files, compile vendor bills, compute Section 50 interest, and draft statutory defenses under strict 7 to 30-day deadlines.',
+    howToolWorks: 'Teeor reads uploaded notice PDFs, extracts the demand amounts and discrepancy tables, cross-references historical supplier filings from client ledgers, and cites relevant statutory circulars (e.g. CBIC Circular No. 183/15/2022).',
+    howItFixesThat: 'Auto-drafts a formal, legally structured Form GST DRC-06 reply with attached invoice proof and reconciliations. The draft is placed on a clean CA review screen for partner approval before dispatch.',
+    caBenefits: [
+      'Cuts notice response preparation from 4 days to 15 minutes',
+      'Ensures statutory circular citations are accurate and compliant',
+      'Human-in-the-loop: Nothing is submitted without explicit CA sign-off'
+    ],
+    roiMetric: 'Reduces legal drafting backlog to zero'
   },
   {
     id: 'vendor-chaser',
     slug: 'vendor-followup-loop',
     category: 'Communication (03)',
     title: 'Automated Vendor Chaser',
-    subtitle: 'WhatsApp & Email Dispute Loop',
-    description: 'Eliminates hundreds of phone calls chasing delinquent suppliers. Generates one-click polite WhatsApp and email messages with specific invoice numbers, missing amounts, and deadlines so vendors upload their GSTR-1 before filing cutoff.',
-    tag: 'Supplier Engagement',
+    domain: 'WhatsApp & Email Dispute Follow-up Loop',
+    tag: 'Vendor Communication',
     layoutClass: 'l-c',
-    client: 'Client Accounts Payable',
-    module: 'Vendor Communication Agent',
-    forms: ['Supplier GSTR-1', 'B2B Missing Invoices'],
-    impact: 'Recovers up to ₹18L in blocked working capital per 100 clients',
-    posterBg: 'linear-gradient(135deg, #13241b 0%, #0a140f 100%)',
     accentColor: '#22c55e',
-    previewBadges: ['WhatsApp Integration', 'One-Click Trigger', 'Real-time Tracker']
+    posterBg: 'linear-gradient(135deg, #13241b 0%, #0a140f 100%)',
+    previewBadges: ['WhatsApp Integration', 'One-Click Send', 'Filing Tracker'],
+    forms: ['Supplier GSTR-1', 'B2B Missing Invoices', 'Credit Notes'],
+    problemSummary: 'Clients lose tax credit because suppliers fail to upload invoices on time. Chasing vendors by phone or unstructured WhatsApp eats up days.',
+    problemDetails: 'When a supplier forgets to file GSTR-1 by the 11th of the month, the buyer cannot claim ITC in GSTR-3B. CA trainees waste days manually calling suppliers or drafting individual WhatsApp messages to follow up, leading to strained vendor relations and lost working capital.',
+    howToolWorks: 'The agent detects unfiled supplier lines from the reconciliation report and automatically compiles clean, branded WhatsApp and email follow-up notices with exact invoice numbers, dates, and missing tax credit amounts.',
+    howItFixesThat: 'Staff can review and dispatch hundreds of vendor reminders in one click. The system logs vendor acknowledgments and updates filing status in real time as soon as the supplier uploads their GSTR-1.',
+    caBenefits: [
+      'Recovers lakhs in blocked working capital for client businesses',
+      'Frees article trainees from endless chasing calls and emails',
+      'Maintains a clean audit trail of all vendor communication'
+    ],
+    roiMetric: 'Recovers up to ₹18 Lakhs in blocked ITC per 100 clients'
   },
   {
     id: 'partner-hub',
     slug: 'partner-control-center',
     category: 'Firm Operations (04)',
     title: 'Partner Command Center',
-    subtitle: 'Single Multi-Client Overview',
-    description: 'Designed exclusively for CA firms managing 50 to 1,500 clients. Gives partners real-time visibility into overall credit at risk, open scrutiny notices, pending filing deadlines, and article trainee review queues in one clean dashboard.',
-    tag: 'Multi-Client Scale',
+    domain: 'Multi-Client Radar & Trainee Audit Trail',
+    tag: 'Multi-Client Firm Hub',
     layoutClass: 'l-b',
-    client: 'Chartered Accountant Partners',
-    module: 'Firm Orchestration Hub',
-    forms: ['All Client Entities', 'Consolidated Filings'],
-    impact: 'Enables 1 partner + 3 trainees to handle 200+ GST clients with ease',
-    posterBg: 'linear-gradient(135deg, #1e1b2e 0%, #0f0e17 100%)',
     accentColor: '#a855f7',
-    previewBadges: ['Firm Overview', 'Audit Trails', 'Role-Based Access']
+    posterBg: 'linear-gradient(135deg, #1f1b2e 0%, #100e18 100%)',
+    previewBadges: ['Practice Radar', 'Audit Trails', 'Role-Based Access'],
+    forms: ['Consolidated Filings', 'All Client GSTINs', 'Audit Logs'],
+    problemSummary: 'CA partners lack visibility into trainee progress, filing bottlenecks, and aggregate client tax credit exposure across dozens of entities.',
+    problemDetails: 'In firms managing 50 to 500+ clients, partners are forced to ask article trainees for verbal updates or check multiple spreadsheets. There is no central visibility into total credit at risk, pending notices, or impending filing deadlines.',
+    howToolWorks: 'Provides a partner-level command dashboard that aggregates all client entities in real time. Features filing readiness radars, trainee task queues, pending notice countdowns, and aggregate credit-at-risk heat maps.',
+    howItFixesThat: 'Partners get an instant snapshot of firm-wide compliance health. Allows one partner with 2–3 trainees to smoothly manage hundreds of corporate clients with complete consistency and zero last-minute surprises.',
+    caBenefits: [
+      'Complete visibility across 50 to 1,500 client GSTINs in one view',
+      'Strict role-based access: trainees prepare, partners approve',
+      'Instant partner summaries for client monthly reviews'
+    ],
+    roiMetric: 'Enables 3x client volume growth without increasing staff headcount'
   },
   {
     id: 'accounting-sync',
     slug: 'accounting-software-ingestion',
     category: 'Data Pipeline (05)',
     title: 'Zero-Config Ingestion',
-    subtitle: 'Tally Prime, Zoho Books & PDF Scans',
-    description: 'Frictionless document pipeline. Ingests purchase registers directly from Tally exports, Zoho Books, Busy, SAP, or raw scanned paper invoices and WhatsApp photos with high-precision Indian tax OCR.',
+    domain: 'Tally Prime, Zoho Books & Indian Tax OCR',
     tag: 'Frictionless Ingestion',
     layoutClass: 'l-b',
-    client: 'Firm Staff & Trainees',
-    module: 'Universal Connector',
-    forms: ['XML', 'Excel (.xlsx)', 'PDF Scans', 'WhatsApp Photos'],
-    impact: 'Zero setup friction; works with existing client books on day one',
-    posterBg: 'linear-gradient(135deg, #242217 0%, #14130d 100%)',
     accentColor: '#eab308',
-    previewBadges: ['Tally Native', 'OCR For Scans', 'Indian Bank Narration AI']
+    posterBg: 'linear-gradient(135deg, #242217 0%, #13120d 100%)',
+    previewBadges: ['Tally Native', 'Scanned OCR', 'Bank Narration AI'],
+    forms: ['Tally XML', 'Zoho Books CSV', 'PDF Scans', 'WhatsApp Photos'],
+    problemSummary: 'Clients provide messy data: paper bills, smartphone photos, corrupted Excel sheets, and varied accounting software exports.',
+    problemDetails: 'Every client has different software or bookkeeping habits. Small businesses often send paper bills, handwritten challans, or WhatsApp photos. Manually standardizing this data before reconciliation takes up to 40% of the entire filing cycle.',
+    howToolWorks: 'Multi-modal document pipeline with state-of-the-art Indian tax OCR. Automatically detects and verifies 15-digit GSTIN checksums, invoice numbers, tax slabs, HSN/SAC codes, and unstructured bank statement narrations.',
+    howItFixesThat: 'Ingests Tally Prime XML, Zoho Books, Busy, or raw PDF/photo uploads directly. Normalizes all data into a standardized reconciliation schema with zero manual pre-formatting required.',
+    caBenefits: [
+      'No need to ask clients to change their accounting software or habits',
+      'Handles messy smartphone photos and scanned PDFs seamlessly',
+      'Direct GSTN GSP integration for automated portal return pulls'
+    ],
+    roiMetric: 'Eliminates 100% of pre-reconciliation data formatting'
   },
   {
     id: 'global-rules',
     slug: 'global-country-rules-packs',
     category: 'International (06)',
     title: 'Modular Country Rules',
-    subtitle: 'India First, Southeast Asia & The Gulf',
-    description: 'A universal matching and drafting engine decoupled from regional bureaucracy. Powered by plug-in rules packs starting with India (GST & TDS), expanding into Indonesia (Coretax PPN), Malaysia (MyInvois), and UAE/KSA VAT.',
+    domain: 'India Beachhead & Indonesia Coretax Rollout',
     tag: 'Global Architecture',
     layoutClass: 'l-d',
-    client: 'International Tax Consultancies',
-    module: 'Country Rules Adapter',
-    forms: ['India GST', 'Indonesia Coretax', 'Malaysia MyInvois', 'GCC VAT'],
-    impact: 'Enables regional expansion in weeks with zero core codebase rewrites',
-    posterBg: 'linear-gradient(135deg, #172428 0%, #0d1517 100%)',
     accentColor: '#06b6d4',
-    previewBadges: ['176 VAT Countries', 'Coretax Ready', 'Dynamic Tax Engine']
+    posterBg: 'linear-gradient(135deg, #152329 0%, #0d1519 100%)',
+    previewBadges: ['176 VAT Countries', 'Coretax Ready', 'Plug-in Engine'],
+    forms: ['India GST/TDS', 'Indonesia Coretax (PPN)', 'Malaysia MyInvois', 'GCC VAT'],
+    problemSummary: '176 countries run VAT or GST, all enforcing mandatory digital e-invoicing. Existing software is locked to single countries and legacy architecture.',
+    problemDetails: 'Governments worldwide (Indonesia, Malaysia, UAE, Saudi Arabia, EU) are rolling out real-time e-invoicing mandates that automatically scrutinize tax credits. Accountants across Southeast Asia face the exact same manual matching crisis that Indian CAs face today.',
+    howToolWorks: 'Teeor decouples the core matching and legal notice engine from regional tax rules. Country rules packs (forms, rates, statutory deadlines, local language) plug into the universal agent engine.',
+    howItFixesThat: 'Allows rapid market expansion without rewriting core software. Operating with regional leadership on the ground in Jakarta (led by Luthfi) to support Indonesia’s newly launched Coretax system.',
+    caBenefits: [
+      'Built for multinational accounting consultancies with cross-border clients',
+      'Ready for Indonesia Coretax PPN e-invoicing mandates',
+      'One unified AI agent engine across Asia and the Middle East'
+    ],
+    roiMetric: 'Deploys a new country rules pack in under 4 weeks'
   }
 ];
 
-export const FIRM_LOCATIONS = [
+export interface RegionalLead {
+  country: string;
+  regionRole: string;
+  leadName: string;
+  leadTitle: string;
+  entity: string;
+  address: string;
+  city: string;
+  phone: string;
+  email: string;
+  focus: string;
+}
+
+export const REGIONAL_LEADS: RegionalLead[] = [
   {
-    country: 'India — HQ & Product',
+    country: 'India',
+    regionRole: 'HQ & Global Product',
+    leadName: 'Kunsang Dorjay',
+    leadTitle: 'Founder & India Lead',
     entity: 'Teeor Technologies',
-    address: 'DLF Cyber City, Phase III',
-    city: 'Gurugram, Haryana 122002',
+    address: 'DLF Cyber City, Phase III & Indiranagar',
+    city: 'Gurugram / Bengaluru, India',
     phone: '+91 98710 23490',
-    email: 'founders@teeor.com',
-    link: 'https://teeor.com'
+    email: 'kunsang@teeor.com',
+    focus: 'Core AI Agent Engine, GSTN/GSP Connectors & CA Firm Relations'
   },
   {
-    country: 'India — Financial Capital',
-    entity: 'Teeor Tax Relations',
-    address: 'Bandra Kurla Complex (BKC)',
-    city: 'Mumbai, Maharashtra 400051',
-    phone: '+91 98200 48192',
-    email: 'mumbai@teeor.com',
-    link: 'https://teeor.com'
-  },
-  {
-    country: 'India — Engineering Hub',
-    entity: 'Teeor Labs',
-    address: 'Indiranagar 100ft Road',
-    city: 'Bengaluru, Karnataka 560038',
-    phone: '+91 99001 88472',
-    email: 'engineering@teeor.com',
-    link: 'https://teeor.com'
-  },
-  {
-    country: 'Indonesia — Market Two',
-    entity: 'Teeor SEA Expansion',
+    country: 'Indonesia',
+    regionRole: 'Market Two · Southeast Asia',
+    leadName: 'Luthfi',
+    leadTitle: 'Regional Lead · Indonesia',
+    entity: 'Teeor SEA Operations',
     address: 'Sudirman Central Business District (SCBD)',
     city: 'Jakarta Selatan 12190, Indonesia',
     phone: '+62 21 515 9021',
-    email: 'jakarta@teeor.com',
-    link: 'https://teeor.com'
+    email: 'luthfi@teeor.com',
+    focus: 'Coretax E-Invoicing Rollout & Indonesian Konsultan Pajak Partnerships'
   }
 ];

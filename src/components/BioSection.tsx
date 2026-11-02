@@ -25,7 +25,7 @@ export const BioSection: React.FC = () => {
               “The tax department already uses automated tools to find mismatches. CA firms still fix them by hand in spreadsheets. That gap is the business.”
             </p>
             <div style={{ marginTop: '12px', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.04em', opacity: 0.7 }}>
-              — Saksham Pradhan, Founder
+              — Kunsang Dorjay, Founder
             </div>
           </div>
 
@@ -68,7 +68,7 @@ export const BioSection: React.FC = () => {
           </p>
 
           <p style={{ marginBottom: '0' }}>
-            <strong>Global Expansion:</strong> We win the Indian market first as our beachhead, then carry the same core matching engine with plug-in rules packs across Indonesia (Coretax), Malaysia, the Gulf, and the European Union.
+            <strong>Global Expansion:</strong> We win the Indian market first as our beachhead (led by Kunsang Dorjay), then carry the same core matching engine with plug-in rules packs into Indonesia's mandatory Coretax e-invoicing rollout (led by Luthfi in Jakarta), and beyond.
           </p>
         </div>
       </div>

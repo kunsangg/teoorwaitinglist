@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { FIRM_LOCATIONS } from '../data/capabilities';
-import { CheckCircle2, Sparkles, Send } from 'lucide-react';
+import { REGIONAL_LEADS } from '../data/capabilities';
+import { CheckCircle2, Sparkles, Send, Globe2, MapPin, Mail, Phone } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -98,7 +98,7 @@ export const ContactSection: React.FC = () => {
                 Thank you, <strong>{formData.partnerName || 'Partner'}</strong>. We have allocated Priority Slot #TE-104 for <strong>{formData.firmName || 'your firm'}</strong>.
               </p>
               <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '14px 20px', borderRadius: '6px', display: 'inline-block', fontSize: '14px', color: '#334155' }}>
-                Our founding team will reach out via WhatsApp at <strong>{formData.whatsapp}</strong> within 24 hours.
+                Our founder <strong>Kunsang Dorjay</strong> will reach out via WhatsApp at <strong>{formData.whatsapp}</strong> within 24 hours.
               </div>
             </div>
           ) : (
@@ -218,35 +218,57 @@ export const ContactSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Regional Department Cards */}
+      {/* Regional Department Cards: India & Indonesia */}
       <div>
         <h4 style={{ fontSize: 'clamp(11px, 0.85vw, 13px)', textTransform: 'uppercase', letterSpacing: '0.06em', opacity: 0.6, marginBottom: '24px' }}>
-          Presence & Regional Leads
+          Presence & Regional Leads (India & Indonesia)
         </h4>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
-          {FIRM_LOCATIONS.map((loc, idx) => (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+          {REGIONAL_LEADS.map((loc, idx) => (
             <div
               key={idx}
               style={{
                 background: '#ffffff',
                 border: '1px solid #e5e5e5',
-                padding: '24px',
-                borderRadius: '4px'
+                padding: '28px',
+                borderRadius: '4px',
+                position: 'relative',
+                overflow: 'hidden'
               }}
             >
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.04em', color: '#059669', marginBottom: '6px', fontWeight: 600 }}>
-                {loc.country}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#059669', fontWeight: 600 }}>
+                  {loc.regionRole}
+                </span>
+                <span style={{ fontSize: '11px', opacity: 0.5, textTransform: 'uppercase' }}>{loc.country}</span>
               </div>
-              <div style={{ fontSize: '16px', fontWeight: 500, marginBottom: '10px' }}>{loc.entity}</div>
-              <div style={{ fontSize: '13px', color: '#6b7280', lineHeight: 1.45, marginBottom: '14px' }}>
-                {loc.address}
-                <br />
-                {loc.city}
+
+              <div style={{ fontSize: '20px', fontWeight: 600, color: '#100f0f', marginBottom: '4px' }}>
+                {loc.leadName}
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 500 }}>
-                <a href={`mailto:${loc.email}`} style={{ color: '#100f0f', textDecoration: 'none' }}>
-                  {loc.email}
-                </a>
+              <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500, marginBottom: '14px' }}>
+                {loc.leadTitle} · {loc.entity}
+              </div>
+
+              <div style={{ fontSize: '13px', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', marginBottom: '6px' }}>
+                  <MapPin size={15} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>{loc.address}, {loc.city}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                  <Mail size={15} color="#64748b" style={{ flexShrink: 0 }} />
+                  <a href={`mailto:${loc.email}`} style={{ color: '#100f0f', textDecoration: 'underline' }}>
+                    {loc.email}
+                  </a>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Phone size={15} color="#64748b" style={{ flexShrink: 0 }} />
+                  <span>{loc.phone}</span>
+                </div>
+              </div>
+
+              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '4px', fontSize: '12px', color: '#334155' }}>
+                <strong>Strategic Focus:</strong> {loc.focus}
               </div>
             </div>
           ))}

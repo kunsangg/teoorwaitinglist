@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Teeor — Authentic Design System
+   Teeor — Authentic Design System & Animations
    Replicated from alitwotimes.com (Exo Ape Architecture)
    ========================================================================== */
 
@@ -26,6 +26,38 @@
   --card-border: rgba(16, 15, 15, 0.08);
   --accent-emerald: #059669;
   --font-family: 'Monument Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   Tactile Film Grain Noise Overlay (1:1 with alitwotimes.com)
+   ========================================================================== */
+@keyframes noise {
+  0% { transform: translate3d(0, 9rem, 0); }
+  10% { transform: translate3d(-1rem, -4rem, 0); }
+  20% { transform: translate3d(-8rem, 2rem, 0); }
+  30% { transform: translate3d(9rem, -9rem, 0); }
+  40% { transform: translate3d(-2rem, 7rem, 0); }
+  50% { transform: translate3d(-9rem, -4rem, 0); }
+  60% { transform: translate3d(2rem, 6rem, 0); }
+  70% { transform: translate3d(7rem, -8rem, 0); }
+  80% { transform: translate3d(-9rem, 1rem, 0); }
+  90% { transform: translate3d(6rem, -5rem, 0); }
+  to { transform: translate3d(-7rem, 0, 0); }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -10rem;
+  left: -10rem;
+  width: calc(100% + 20rem);
+  height: calc(100% + 20rem);
+  z-index: 9999;
+  pointer-events: none;
+  background-position: 50%;
+  background-image: url(/images/noise.png);
+  opacity: 0.035;
+  animation: noise 1.2s steps(3) infinite;
 }
 
 /* ==========================================================================
@@ -59,75 +91,36 @@ body {
 }
 
 /* ==========================================================================
-   Typography Classes (f-0 through f-8)
+   Signature Link Underline Hover Wipe (alitwotimes.com micro-interaction)
    ========================================================================== */
-.f-0 {
-  font-size: clamp(56px, 19vw, 280px);
-  line-height: 0.82;
-  font-weight: 500;
-  letter-spacing: -0.065em;
-  text-transform: uppercase;
+a {
+  color: var(--ink-color);
+  text-decoration: none;
+  position: relative;
+  transition: opacity 0.2s ease;
 }
 
-.f-1 {
-  font-size: clamp(48px, 15vw, 200px);
-  line-height: 0.85;
-  font-weight: 500;
-  letter-spacing: -0.055em;
-  text-transform: uppercase;
+a.underline-wipe, #a-menu a {
+  position: relative;
+  display: inline-block;
 }
 
-.f-2 {
-  font-size: clamp(36px, 10vw, 130px);
-  line-height: 0.9;
-  font-weight: 500;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
+#a-menu a::after, a.underline-wipe::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--ink-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.f-3 {
-  font-size: clamp(28px, 6.5vw, 84px);
-  line-height: 0.98;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-}
-
-.f-4 {
-  font-size: clamp(22px, 3.8vw, 48px);
-  line-height: 1.08;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-
-.f-5 {
-  font-size: clamp(18px, 2.6vw, 36px);
-  line-height: 1.15;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-
-.f-6 {
-  font-size: clamp(14px, 1.3vw, 19px);
-  line-height: 1.55;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-
-.f-7 {
-  font-size: clamp(13px, 1.1vw, 16px);
-  line-height: 1.4;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.f-8 {
-  font-size: clamp(11px, 0.85vw, 13px);
-  line-height: 1.3;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+#a-menu a:hover::after, #a-menu a.is-active::after, a.underline-wipe:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* ==========================================================================
@@ -140,7 +133,7 @@ body {
   right: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(252, 246, 244, 0.92);
+  background: rgba(252, 246, 244, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(16, 15, 15, 0.08);
@@ -174,29 +167,8 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  position: relative;
-  cursor: pointer;
   padding-bottom: 2px;
-  display: inline-block;
-}
-
-#a-menu a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1.5px;
-  background-color: var(--ink-color);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-#a-menu a:hover::after,
-#a-menu a.is-active::after {
-  transform: scaleX(1);
-  transform-origin: left;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -354,7 +326,7 @@ body {
 
 #s-work .row.l-d .block {
   grid-column: span 12;
-  min-height: 460px;
+  min-height: 480px;
   height: auto;
 }
 
@@ -394,7 +366,9 @@ body {
   }
 }
 
-/* Capability Card */
+/* ==========================================================================
+   Capability Card Hover Zoom & Dynamics
+   ========================================================================== */
 .capability-card {
   display: flex;
   flex-direction: column;
@@ -403,12 +377,12 @@ body {
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .capability-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -8px rgba(0, 0, 0, 0.22);
 }
 
 .capability-card .card-canvas-preview {
@@ -450,13 +424,6 @@ body {
   border-top: 1px solid var(--line-color);
 }
 
-@media (max-width: 900px) {
-  #s-bio > div:last-child {
-    grid-template-columns: 1fr !important;
-    gap: 8vw !important;
-  }
-}
-
 /* ==========================================================================
    Contact / Pilot Waitlist (#s-contact)
    ========================================================================== */
@@ -466,21 +433,6 @@ body {
   border-top: 1px solid var(--line-color);
 }
 
-@media (max-width: 900px) {
-  #s-contact > div:nth-child(3) {
-    grid-template-columns: 1fr !important;
-    gap: 8vw !important;
-  }
-  #s-contact .waitlist-card {
-    padding: 6vw !important;
-  }
-  #s-contact > div:last-child > div {
-    grid-template-columns: 1fr !important;
-    gap: 4vw !important;
-  }
-}
-
-/* Waitlist Card & Form */
 .waitlist-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -583,7 +535,7 @@ body {
   background: #fcf6f4;
   z-index: 2000;
   overflow-y: auto;
-  animation: modalFadeIn 0.3s ease-out;
+  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalFadeIn {
@@ -610,63 +562,24 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: transform 0.2s ease;
 }
 
 .back-btn:hover {
   text-decoration: underline;
+  transform: translateX(-3px);
 }
 
 .player-video-box {
   width: calc(100% - 12.5vw);
   margin: 0 auto;
-  min-height: 52vh;
   border-radius: 6px;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(20px, 3vw, 40px);
-}
-
-.player-controls {
-  display: flex;
-  align-items: center;
-  gap: 1.5vw;
-  margin-top: 2vw;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(12px);
-  padding: 12px 20px;
-  border-radius: 999px;
-  width: 100%;
-}
-
-.player-controls .play-btn {
-  background: #ffffff;
-  color: #100f0f;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.player-controls .timeline-bar {
-  flex: 1;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  position: relative;
-  cursor: pointer;
-}
-
-.player-controls .timeline-progress {
-  height: 100%;
-  background: #10b981;
-  border-radius: 2px;
+  box-sizing: border-box;
 }
 
 .player-info-grid {
@@ -708,13 +621,6 @@ body {
   letter-spacing: -0.04em;
 }
 
-.player-main-content p {
-  font-size: clamp(14px, 1.35vw, 19px);
-  line-height: 1.55;
-  color: #333333;
-  margin-bottom: 2.5vw;
-}
-
 .player-cta-btn {
   display: inline-flex;
   align-items: center;
@@ -729,6 +635,12 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.player-cta-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.94;
 }
 
 @media (max-width: 800px) {
