@@ -1,51 +1,28 @@
 import React from 'react';
 
 interface NavbarProps {
-  activeTab: 'work' | 'bio' | 'contact';
-  setActiveTab: (tab: 'work' | 'bio' | 'contact') => void;
   onScrollTo: (id: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onScrollTo }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onScrollTo }) => {
   return (
     <nav id="a-menu" aria-label="Main Navigation">
       <ul>
         <div className="nav-left">
           <li>
-            <a
-              className={activeTab === 'bio' ? 'is-active' : ''}
-              onClick={() => {
-                setActiveTab('bio');
-                onScrollTo('s-bio');
-              }}
-            >
-              Bio / Mission
-            </a>
+            <a onClick={() => onScrollTo('s-bio')}>Bio</a>
           </li>
           <li>
-            <a
-              className={activeTab === 'work' ? 'is-active' : ''}
-              onClick={() => {
-                setActiveTab('work');
-                onScrollTo('s-work');
-              }}
-            >
-              Capabilities
-            </a>
+            <a onClick={() => onScrollTo('s-work')}>Work</a>
+          </li>
+          <li>
+            <a onClick={() => onScrollTo('s-contact')}>Contact</a>
           </li>
         </div>
 
         <div className="nav-right">
           <li>
-            <a
-              className={activeTab === 'contact' ? 'is-active' : ''}
-              onClick={() => {
-                setActiveTab('contact');
-                onScrollTo('s-contact');
-              }}
-            >
-              Apply for Pilot (10 Firms) →
-            </a>
+            <a onClick={() => onScrollTo('s-contact')}>Join Pilot (10 Firms) →</a>
           </li>
         </div>
       </ul>

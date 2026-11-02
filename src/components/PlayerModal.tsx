@@ -1,115 +1,131 @@
-import React, { useState } from 'react';
-import { DomainWorkflow } from '../data/capabilities';
-import { ArrowLeft, CheckCircle2, ShieldCheck, Sparkles, HelpCircle, Wrench, CheckCheck } from 'lucide-react';
-import { DomainVisualPicture } from './DomainVisualPicture';
+import React from 'react';
+import { WorkflowItem } from './WorkSection';
 
 interface PlayerModalProps {
-  capability: DomainWorkflow;
+  workflow: WorkflowItem;
   onClose: () => void;
   onApplyPilot: () => void;
 }
 
-export const PlayerModal: React.FC<PlayerModalProps> = ({ capability, onClose, onApplyPilot }) => {
+export const PlayerModal: React.FC<PlayerModalProps> = ({ workflow, onClose, onApplyPilot }) => {
   return (
-    <div className="modal-overlay">
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 2000,
+        background: '#100f0f',
+        color: '#fcf6f4',
+        overflowY: 'auto',
+        animation: 'fadeIn 0.3s ease-out'
+      }}
+    >
       {/* Header with Go Back */}
-      <div className="player-header">
-        <button className="back-btn" onClick={onClose}>
-          <ArrowLeft size={20} />
-          <span>← Go Back</span>
+      <div style={{ padding: '3vw 6.25vw 2vw 6.25vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <button
+          onClick={onClose}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#fcf6f4',
+            fontFamily: 'inherit',
+            fontSize: '1.2vw',
+            cursor: 'pointer',
+            padding: 0
+          }}
+        >
+          ← Go Back
         </button>
-        <span style={{ fontSize: 'clamp(11px, 0.9vw, 13px)', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 }}>
-          {capability.category} · {capability.domain}
+        <span className="f-8" style={{ opacity: 0.6 }}>
+          {workflow.category}
         </span>
       </div>
 
-      {/* Main Showcase Visual Box */}
-      <div className="player-video-box" style={{ background: capability.posterBg, minHeight: 'auto', padding: '36px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: capability.accentColor, boxShadow: `0 0 12px ${capability.accentColor}` }} />
-            <span style={{ color: '#ffffff', fontSize: '15px', fontWeight: 500, letterSpacing: '0.02em' }}>
-              HOW THE TOOL WORKS & FIXES THIS DOMAIN
-            </span>
+      {/* Main Viewport Container (Empty clean media container, ready for image/video later) */}
+      <div
+        style={{
+          width: 'calc(100% - 12.5vw)',
+          margin: '0 auto',
+          height: '60vh',
+          background: '#141414',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        {workflow.videoUrl ? (
+          <video src={workflow.videoUrl} loop muted autoPlay playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : workflow.mediaUrl ? (
+          <img src={workflow.mediaUrl} alt={workflow.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          <div style={{ textAlign: 'center', opacity: 0.4 }}>
+            <span className="f-8">[ Media slot: Video / Picture will be added here ]</span>
           </div>
-          <span style={{ background: 'rgba(255, 255, 255, 0.1)', color: '#ffffff', padding: '4px 12px', borderRadius: '4px', fontSize: '12px' }}>
-            CA Practice Ready
-          </span>
-        </div>
-
-        {/* Detailed Domain Picture / Diagram */}
-        <div style={{ maxWidth: '820px', margin: '0 auto', width: '100%' }}>
-          <DomainVisualPicture workflow={capability} isHovered={true} detailed={true} />
-        </div>
+        )}
       </div>
 
-      {/* Deep-Dive Explanation Grid for CAs */}
-      <div className="player-info-grid">
-        <div className="player-info-details">
-          <ul>
+      {/* Info Section (#s-info style) */}
+      <div
+        style={{
+          width: 'calc(100% - 12.5vw)',
+          margin: '4vw auto 8vw auto',
+          display: 'grid',
+          gridTemplateColumns: '1fr 2fr',
+          gap: '6vw'
+        }}
+      >
+        <div>
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '2vw' }}>
             <li>
-              <strong>Designated Domain</strong>
-              <span>{capability.domain}</span>
+              <strong className="f-8" style={{ display: 'block', opacity: 0.5, marginBottom: '0.4vw' }}>
+                Classification
+              </strong>
+              <span className="f-6">{workflow.category}</span>
             </li>
             <li>
-              <strong>Applicable Statutory Forms</strong>
-              <span>{capability.forms.join(', ')}</span>
+              <strong className="f-8" style={{ display: 'block', opacity: 0.5, marginBottom: '0.4vw' }}>
+                Audience
+              </strong>
+              <span className="f-6">CA Firms & In-House Finance Teams</span>
             </li>
             <li>
-              <strong>Quantified Impact</strong>
-              <span style={{ color: '#059669' }}>{capability.roiMetric}</span>
-            </li>
-            <li>
-              <strong>Review Model</strong>
-              <span>100% Human-In-The-Loop (CA Approval Required)</span>
+              <strong className="f-8" style={{ display: 'block', opacity: 0.5, marginBottom: '0.4vw' }}>
+                Deployment
+              </strong>
+              <span className="f-6">Autonomous Agent · Human Approval</span>
             </li>
           </ul>
         </div>
 
-        <div className="player-main-content">
-          <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 44px)', margin: '0 0 24px 0' }}>{capability.title}</h2>
+        <div>
+          <h2 className="f-4" style={{ margin: '0 0 1.5vw 0' }}>
+            {workflow.title}
+          </h2>
+          <p className="f-6" style={{ opacity: 0.85, lineHeight: 1.6, marginBottom: '3vw' }}>
+            {workflow.context}
+          </p>
 
-          {/* Problem Section */}
-          <div style={{ marginBottom: '28px', background: '#ffffff', padding: '24px', border: '1px solid #e5e5e5', borderRadius: '4px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#b91c1c', fontWeight: 600, fontSize: '13px', textTransform: 'uppercase', marginBottom: '8px' }}>
-              <HelpCircle size={16} /> The Problem for CA Firms
-            </div>
-            <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.6, color: '#334155' }}>
-              {capability.problemDetails}
-            </p>
-          </div>
-
-          {/* How Tool Works & Fixes It */}
-          <div style={{ marginBottom: '28px', background: '#ffffff', padding: '24px', border: '1px solid #e5e5e5', borderRadius: '4px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#059669', fontWeight: 600, fontSize: '13px', textTransform: 'uppercase', marginBottom: '8px' }}>
-              <Wrench size={16} /> How Teeor Works & Fixes It
-            </div>
-            <p style={{ margin: '0 0 12px 0', fontSize: '15px', lineHeight: 1.6, color: '#334155' }}>
-              {capability.howToolWorks}
-            </p>
-            <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.6, color: '#0f172a', fontWeight: 500 }}>
-              {capability.howItFixesThat}
-            </p>
-          </div>
-
-          {/* CA Benefits Checklist */}
-          <div style={{ marginBottom: '32px' }}>
-            <div style={{ fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '12px', color: '#100f0f' }}>
-              Direct Advantages for Your Practice:
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {capability.caBenefits.map((benefit, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#334155' }}>
-                  <CheckCheck size={16} color="#059669" />
-                  <span>{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <button className="player-cta-btn" onClick={onApplyPilot}>
-            <span>Test This Workflow in 30-Day Free Pilot</span>
-            <span>→</span>
+          <button
+            onClick={onApplyPilot}
+            style={{
+              background: '#fcf6f4',
+              color: '#100f0f',
+              border: 'none',
+              padding: '1.2vw 2.5vw',
+              fontFamily: 'inherit',
+              fontSize: '1vw',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              cursor: 'pointer'
+            }}
+          >
+            Apply for 30-Day Pilot →
           </button>
         </div>
       </div>
