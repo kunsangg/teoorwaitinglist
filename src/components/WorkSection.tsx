@@ -9,7 +9,7 @@ export interface WorkflowItem {
   videoUrl: string;
 }
 
-export const WORKFLOWS: WorkflowItem[] = [
+const WORKFLOWS: WorkflowItem[] = [
   {
     id: 'gst-recon',
     category: 'Agent Engine (01)',
@@ -94,42 +94,86 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectWorkflow }) =>
       <div className="projects">
         {/* Row 1: l-d (Full Width: Autonomous Reconciliation) */}
         <div className="row l-d reveal-up">
-          {renderBlock(WORKFLOWS[0], onSelectWorkflow)}
+          <WorkflowBlock item={WORKFLOWS[0]} onSelect={onSelectWorkflow} />
         </div>
 
         {/* Row 2: l-c (Asymmetric 2-Column: Legal Workflow + Vendor Chaser) */}
         <div className="row l-c reveal-up">
-          {renderBlock(WORKFLOWS[1], onSelectWorkflow)}
-          {renderBlock(WORKFLOWS[2], onSelectWorkflow)}
+          <WorkflowBlock item={WORKFLOWS[1]} onSelect={onSelectWorkflow} />
+          <WorkflowBlock item={WORKFLOWS[2]} onSelect={onSelectWorkflow} />
         </div>
 
         {/* Row 3: l-b (Inverted 2-Column: Firm Operations + Data Pipeline) */}
         <div className="row l-b reveal-up">
-          {renderBlock(WORKFLOWS[3], onSelectWorkflow)}
-          {renderBlock(WORKFLOWS[4], onSelectWorkflow)}
+          <WorkflowBlock item={WORKFLOWS[3]} onSelect={onSelectWorkflow} />
+          <WorkflowBlock item={WORKFLOWS[4]} onSelect={onSelectWorkflow} />
         </div>
 
         {/* Row 4: l-d (Full Width: Global Engine) */}
         <div className="row l-d reveal-up">
-          {renderBlock(WORKFLOWS[5], onSelectWorkflow)}
+          <WorkflowBlock item={WORKFLOWS[5]} onSelect={onSelectWorkflow} />
         </div>
       </div>
     </section>
   );
 };
 
-function renderBlock(item: WorkflowItem, onSelect: (item: WorkflowItem) => void) {
+interface WorkflowBlockProps {
+  item: WorkflowItem;
+  onSelect: (item: WorkflowItem) => void;
+}
+
+const WorkflowBlock: React.FC<WorkflowBlockProps> = ({ item, onSelect }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err: Error) => {
+          if (err.name !== 'AbortError') {
+            console.error('Video play interrupted:', err);
+          }
+        });
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  const handleClick = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    onSelect(item);
+  };
+
   return (
-    <div key={item.id} className="block" onClick={() => onSelect(item)}>
+    <div
+      key={item.id}
+      className="block"
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <a>
         <div className="thumbnail">
           <video
-            src={item.videoUrl}
+            ref={videoRef}
+            src={`${item.videoUrl}#t=0.001`}
             loop
             muted
-            autoPlay
             playsInline
             preload="metadata"
+            onLoadedMetadata={() => {
+              if (videoRef.current && videoRef.current.paused && videoRef.current.currentTime === 0) {
+                videoRef.current.currentTime = 0.001;
+              }
+            }}
           />
           <div className="thumbnail-gradient-overlay" />
         </div>
@@ -144,4 +188,4 @@ function renderBlock(item: WorkflowItem, onSelect: (item: WorkflowItem) => void)
       </a>
     </div>
   );
-}
+};
