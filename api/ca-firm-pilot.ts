@@ -44,14 +44,14 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
 ): Promise<void> {
-  // --- Method gate ---
+  // Method gate
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
 
-  // --- Rate limit ---
+  // Rate limit
   const ip =
     (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ??
     req.socket?.remoteAddress ??
@@ -62,7 +62,7 @@ export default async function handler(
     return;
   }
 
-  // --- Parse & validate body ---
+  // Parse & validate body
   const {
     partnerName,
     firmName,
@@ -71,12 +71,11 @@ export default async function handler(
     clientCount,
     software,
     agreeTerms,
-    _honeypot, // hidden field – must be empty
-  } = req.body ?? {};
+    _honeypot,
+  } = (req.body as Record<string, any>) ?? {};
 
   // Honeypot spam check
   if (_honeypot) {
-    // Silently accept to avoid tipping off bots, but do nothing
     res.status(201).json({ ok: true });
     return;
   }
@@ -117,59 +116,83 @@ export default async function handler(
     return;
   }
 
-  // --- Notion environment check ---
+  // Notion environment check
   const notionKey = process.env.NOTION_API_KEY;
   const dataSourceId = process.env.NOTION_DATA_SOURCE_ID;
+  const databaseId = process.env.NOTION_DATABASE_ID;
 
-  if (!notionKey || !dataSourceId) {
-    console.error('Missing NOTION_API_KEY or NOTION_DATA_SOURCE_ID env vars.');
-    res.status(500).json({ error: 'Server configuration error. Please try again later.' });
+  if (!notionKey || (!dataSourceId && !databaseId)) {
+    console.error('Missing NOTION_API_KEY or (NOTION_DATA_SOURCE_ID / NOTION_DATABASE_ID).');
+    res.status(500).json({
+      error: 'Server configuration error. Missing Notion credentials.',
+    });
     return;
   }
 
-  // --- Write to Notion ---
-  // Since Sept 2025, the Notion API requires data_source_id (not database_id)
-  // for pages.create. SDK v5.x uses the new API version by default.
   try {
     const notion = new Client({ auth: notionKey });
 
-    await notion.pages.create({
-      parent: { data_source_id: dataSourceId } as any,
-      properties: {
-        'Partner Name': {
-          title: [{ text: { content: partnerName.trim() } }],
-        },
-        'Firm Name': {
-          rich_text: [{ text: { content: firmName.trim() } }],
-        },
-        Email: {
-          email: email.trim().toLowerCase(),
-        },
-        'WhatsApp Number': {
-          phone_number: whatsapp.trim(),
-        },
-        'Total GST Clients': {
-          select: { name: clientCount },
-        },
-        'Primary Accounting Tool': {
-          select: { name: software },
-        },
-        'Pilot Agreement': {
-          checkbox: true,
-        },
-        'Application Status': {
-          select: { name: 'New' },
-        },
-        // "Date Submitted" is a Created-time property — Notion fills it automatically
+    const properties: Record<string, any> = {
+      'Partner Name': {
+        title: [{ text: { content: partnerName.trim() } }],
       },
-    });
+      'Firm Name': {
+        rich_text: [{ text: { content: firmName.trim() } }],
+      },
+      Email: {
+        email: email.trim().toLowerCase(),
+      },
+      'WhatsApp Number': {
+        phone_number: whatsapp.trim(),
+      },
+      'Total GST Clients': {
+        select: { name: clientCount },
+      },
+      'Primary Accounting Tool': {
+        select: { name: software },
+      },
+      'Pilot Agreement': {
+        checkbox: true,
+      },
+      'Application Status': {
+        select: { name: 'New' },
+      },
+    };
 
-    res.status(201).json({ ok: true });
+    // Try data_source_id first (Notion API Sept 2025+), fallback to database_id
+    if (dataSourceId) {
+      try {
+        await notion.pages.create({
+          parent: { data_source_id: dataSourceId } as any,
+          properties,
+        });
+        res.status(201).json({ ok: true });
+        return;
+      } catch (err: any) {
+        console.warn('Attempt with data_source_id failed:', err?.message);
+        if (!databaseId) {
+          throw err;
+        }
+      }
+    }
+
+    if (databaseId) {
+      await notion.pages.create({
+        parent: { database_id: databaseId } as any,
+        properties,
+      });
+      res.status(201).json({ ok: true });
+      return;
+    }
+
+    res.status(500).json({ error: 'Failed to save application to Notion.' });
   } catch (err: unknown) {
     const message =
       err instanceof Error ? err.message : 'Unknown error saving application.';
     console.error('Notion API error:', message);
-    res.status(500).json({ error: 'Failed to save your application. Please try again.' });
+    res.status(500).json({
+      error: 'Failed to save your application. Please try again.',
+      details: message,
+    });
   }
 }
-
