@@ -1,6 +1,7 @@
 /* ==========================================================================
    Teeor — 1:1 Replicated Design System from alitwotimes.com
    Typography, Layout, Grid, Micro-Interactions, Noise & Intro Animations
+   Fully Responsive (Desktop, Tablet & Mobile Phone Optimized)
    ========================================================================== */
 
 @font-face {
@@ -85,6 +86,7 @@ html {
   min-height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
 }
 
 *, *::before, *::after {
@@ -99,8 +101,8 @@ body {
   background-color: var(--bg-color);
   color: var(--ink-color);
   font-family: var(--font-family);
-  font-size: 0.972vw;
-  line-height: 1.389vw;
+  font-size: clamp(14px, 0.972vw, 16px);
+  line-height: 1.5;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -128,51 +130,51 @@ body {
 }
 
 /* ==========================================================================
-   Typography Scale (f-0 through f-8 from alitwotimes.com)
+   Typography Scale (f-0 through f-8 from alitwotimes.com with Fluid Bounds)
    ========================================================================== */
 .f-0 {
   font-weight: 500;
-  font-size: 20.417vw;
-  line-height: 16.319vw;
+  font-size: clamp(64px, 20.417vw, 294px);
+  line-height: 0.85;
   letter-spacing: -0.07em;
   text-transform: uppercase;
 }
 
 .f-1 {
   font-weight: 500;
-  font-size: 19.375vw;
-  line-height: 15.486vw;
+  font-size: clamp(56px, 19.375vw, 279px);
+  line-height: 0.85;
   letter-spacing: -0.07em;
   text-transform: uppercase;
 }
 
 .f-2 {
   font-weight: 500;
-  font-size: 14.028vw;
-  line-height: 11.25vw;
+  font-size: clamp(48px, 14.028vw, 202px);
+  line-height: 0.88;
   letter-spacing: -0.05em;
   text-transform: uppercase;
 }
 
 .f-3 {
   font-weight: 500;
-  font-size: 10.208vw;
-  line-height: 8.194vw;
+  font-size: clamp(40px, 10.208vw, 147px);
+  line-height: 0.9;
   letter-spacing: -0.04em;
 }
 
 .f-4 {
   font-weight: 500;
-  font-size: 4.167vw;
-  line-height: 4.167vw;
+  font-size: clamp(28px, 4.167vw, 60px);
+  line-height: 1.05;
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
 
 .f-5 {
   font-weight: 500;
-  font-size: 3.299vw;
-  line-height: 2.986vw;
+  font-size: clamp(24px, 3.299vw, 48px);
+  line-height: 1.05;
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
@@ -180,52 +182,25 @@ body {
 .f-6 {
   font-style: normal;
   font-weight: 400;
-  font-size: 1.528vw;
-  line-height: 2.014vw;
+  font-size: clamp(14px, 1.528vw, 22px);
+  line-height: 1.5;
   letter-spacing: -0.005em;
 }
 
 .f-7 {
   font-weight: 500;
-  font-size: 1.389vw;
-  line-height: 1.25vw;
+  font-size: clamp(16px, 1.389vw, 20px);
+  line-height: 1.3;
   letter-spacing: -0.02em;
 }
 
 .f-8 {
   font-style: normal;
   font-weight: 500;
-  font-size: 0.972vw;
-  line-height: 1.389vw;
+  font-size: clamp(11px, 0.972vw, 14px);
+  line-height: 1.4;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-}
-
-@media only screen and (max-width: 580px) {
-  body {
-    font-size: 3.889vw;
-    line-height: 5.833vw;
-  }
-  .f-4 {
-    font-size: 8.333vw;
-    line-height: 8.889vw;
-  }
-  .f-5 {
-    font-size: 6.944vw;
-    line-height: 6.389vw;
-  }
-  .f-6 {
-    font-size: 3.889vw;
-    line-height: 5.833vw;
-  }
-  .f-7 {
-    font-size: 3.889vw;
-    line-height: 5vw;
-  }
-  .f-8 {
-    font-size: 2.778vw;
-    line-height: 3.889vw;
-  }
 }
 
 /* ==========================================================================
@@ -236,6 +211,7 @@ a {
   text-decoration: none;
   position: relative;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #a-menu a, #h-hero a, #s-contact a, #a-footer a, .underline-link {
@@ -255,9 +231,11 @@ a {
   transition: transform 0.4s ease-out;
 }
 
-#a-menu a:hover::before, #h-hero a:hover::before, #s-contact a:hover::before, #a-footer a:hover::before, .underline-link:hover::before {
-  transform: scaleX(0);
-  transform-origin: right;
+@media (hover: hover) {
+  #a-menu a:hover::before, #h-hero a:hover::before, #s-contact a:hover::before, #a-footer a:hover::before, .underline-link:hover::before {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
 }
 
 /* ==========================================================================
@@ -276,7 +254,7 @@ a {
 
 #a-menu.scrolled {
   padding: 1.5vw 6.25vw 1.3vw;
-  background-color: rgba(252, 246, 244, 0.92);
+  background-color: rgba(252, 246, 244, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(16, 15, 15, 0.08);
@@ -285,7 +263,7 @@ a {
 #a-menu ul {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -299,26 +277,34 @@ a {
 
 #a-menu a {
   font-family: var(--font-family);
-  font-size: 0.972vw;
+  font-size: clamp(12px, 0.972vw, 14px);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 768px) {
   #a-menu {
-    padding: 6vw 8.33vw 0;
+    padding: max(16px, env(safe-area-inset-top)) clamp(16px, 5vw, 24px) 10px;
   }
   #a-menu.scrolled {
-    padding: 4vw 8.33vw 3.5vw;
+    padding: max(12px, env(safe-area-inset-top)) clamp(16px, 5vw, 24px) 12px;
   }
   #a-menu a {
-    font-size: 3.5vw;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    padding: 8px 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  #a-menu .nav-left, #a-menu .nav-right {
+    gap: 16px;
   }
 }
 
 /* ==========================================================================
-   Hero Section (#h-hero) with Intro Animations (Non-Overlapping Flex Architecture)
+   Hero Section (#h-hero) with Intro Animations
    ========================================================================== */
 #h-hero {
   width: 100%;
@@ -355,7 +341,7 @@ a {
   margin: 0;
 }
 
-/* Right Column: Wordmark sitting cleanly above description (Cannot overlap) */
+/* Right Column: Wordmark sitting cleanly above description */
 #h-hero .hero-right-col {
   position: absolute;
   right: 6.25vw;
@@ -439,29 +425,14 @@ a {
   opacity: 0.85;
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 768px) {
   #h-hero {
     height: auto;
-    min-height: 100vh;
-    padding: 24vw 8.33vw 12vw 8.33vw;
+    min-height: 100svh;
+    padding: clamp(90px, 22vw, 120px) clamp(16px, 5vw, 24px) clamp(40px, 8vw, 60px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-  }
-  #h-hero .bottom-l {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    order: 2;
-    margin-top: 10vw;
-  }
-  #h-hero .bottom-l h1 {
-    font-size: 4.5vw;
-    margin-bottom: 2vw;
-  }
-  #h-hero .bottom-l p {
-    font-size: 3.8vw;
-    margin-bottom: 6vw;
   }
   #h-hero .hero-right-col {
     position: relative;
@@ -472,29 +443,62 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8vw;
+    gap: 16px;
+    pointer-events: auto;
   }
   #h-hero .hero-right-col .heading {
     justify-content: flex-start;
+    width: 100%;
   }
   #h-hero .hero-right-col .heading svg,
   #h-hero .hero-right-col .heading img {
-    width: 78vw;
-    max-width: none;
+    width: 100%;
+    max-width: clamp(240px, 75vw, 360px);
+    height: auto;
+    display: block;
   }
   #h-hero .hero-right-col .bottom-r {
     text-align: left;
-    order: 3;
-    margin-top: 4vw;
+    width: 100%;
+    margin-top: 4px;
   }
   #h-hero .hero-right-col .bottom-r .f-7 {
-    font-size: 5vw;
-    line-height: 5vw;
-    margin-bottom: 4vw;
+    font-size: clamp(16px, 4.5vw, 20px);
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  #h-hero .hero-right-col .bottom-r .line div::before {
+    top: 3px;
+    left: -16px;
+    width: 11px;
+    height: 11px;
   }
   #h-hero .hero-right-col .bottom-r p {
-    font-size: 3.8vw;
-    line-height: 5.5vw;
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.55;
+    opacity: 0.88;
+  }
+  #h-hero .bottom-l {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    order: 2;
+    margin-top: clamp(36px, 9vw, 56px);
+    padding-top: clamp(24px, 6vw, 36px);
+    border-top: 1px solid rgba(16, 15, 15, 0.1);
+    width: 100%;
+  }
+  #h-hero .bottom-l h1 {
+    font-size: clamp(14px, 4vw, 16px);
+    margin-bottom: 4px;
+  }
+  #h-hero .bottom-l p {
+    font-size: clamp(13px, 3.6vw, 15px);
+    margin-bottom: 20px;
+  }
+  #h-hero .bottom-l .f-5 {
+    font-size: clamp(26px, 7.5vw, 40px);
+    line-height: 1.05;
   }
 }
 
@@ -562,6 +566,7 @@ a {
   position: relative;
   background: #141414;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .block a {
@@ -632,7 +637,7 @@ a {
 .block .title span {
   display: block;
   font-weight: 500;
-  font-size: 0.972vw;
+  font-size: clamp(10px, 0.972vw, 13px);
   line-height: 1.25vw;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -643,29 +648,42 @@ a {
 .block .title h3 {
   margin: 0 0 0.5vw 0;
   font-weight: 500;
-  font-size: 2.222vw;
-  line-height: 2.222vw;
+  font-size: clamp(22px, 2.222vw, 36px);
+  line-height: 1.15;
   letter-spacing: -0.03em;
   color: #fcf6f4;
 }
 
 .block .title .desc {
   margin: 0;
-  font-size: 1vw;
+  font-size: clamp(13px, 1vw, 16px);
   line-height: 1.4vw;
   color: #cbd5e1;
   opacity: 0.85;
   max-width: 80%;
 }
 
-@media only screen and (max-width: 580px) {
+.mobile-tap-hint {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  #s-work {
+    margin-top: 24px;
+    scroll-margin-top: 72px;
+  }
   #s-work .head {
-    padding: 0 8.33vw;
-    margin-bottom: 6vw;
+    padding: 0 clamp(16px, 5vw, 24px);
+    margin-bottom: 20px;
+  }
+  #s-work .projects {
+    padding: 0 clamp(16px, 5vw, 24px);
   }
   #s-work .row {
-    display: block;
-    margin-bottom: 6vw;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
   }
   #s-work .block,
   #s-work .l-d .block,
@@ -674,26 +692,52 @@ a {
   #s-work .l-b .block:nth-child(1),
   #s-work .l-b .block:nth-child(2) {
     grid-column: unset;
-    height: 65vw;
-    margin: 0 8.33vw 6vw;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    aspect-ratio: 16 / 11;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   }
   .block .title {
-    bottom: 5vw;
-    left: 5vw;
-    right: 5vw;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 20px 20px;
   }
   .block .title span {
-    font-size: 3vw;
-    line-height: 4vw;
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
   }
   .block .title h3 {
-    font-size: 6vw;
-    line-height: 6.5vw;
+    font-size: clamp(20px, 5.5vw, 26px);
+    line-height: 1.2;
+    margin-bottom: 6px;
   }
   .block .title .desc {
-    font-size: 3.5vw;
-    line-height: 5vw;
+    font-size: clamp(13px, 3.5vw, 15px);
+    line-height: 1.45;
     max-width: 100%;
+    opacity: 0.9;
+  }
+  .mobile-tap-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fcf6f4;
+    opacity: 0.75;
+    margin-top: 10px;
+  }
+  .thumbnail-gradient-overlay {
+    background: linear-gradient(180deg, rgba(16, 15, 15, 0.05) 0%, rgba(16, 15, 15, 0.45) 40%, rgba(16, 15, 15, 0.94) 100%);
   }
 }
 
@@ -762,6 +806,7 @@ a {
   position: relative;
   border-bottom: 1px solid rgba(16, 15, 15, 0.15);
   transition: height 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #s-contact .location.is-active {
@@ -819,7 +864,7 @@ a {
 }
 
 #s-contact .location li {
-  font-size: 1.05vw;
+  font-size: clamp(13px, 1.05vw, 16px);
   line-height: 1.6;
 }
 
@@ -827,12 +872,11 @@ a {
   height: 4.861vw;
   font-weight: 500;
   line-height: 4.861vw;
-  font-size: 1.2vw;
+  font-size: clamp(15px, 1.2vw, 18px);
 }
 
 /* ==========================================================================
    Claude Startups Inspired Separated Pilot Box Section
-   (Inspired by https://claude.com/programs/startups & media_1793643791484_9079718f.png)
    ========================================================================== */
 .claude-pilot-section {
   margin: 6vw 0 0 0;
@@ -934,6 +978,8 @@ a {
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .claude-input:focus, .claude-select:focus {
@@ -980,6 +1026,10 @@ a {
   transform: translateY(-1px);
 }
 
+.claude-submit-btn:active {
+  transform: scale(0.99);
+}
+
 .submitted-view {
   text-align: center;
   padding: 24px 12px;
@@ -1011,41 +1061,116 @@ a {
 
 @media only screen and (max-width: 768px) {
   #s-contact {
-    margin: 16vw 8.33vw;
+    margin: clamp(48px, 12vw, 80px) clamp(16px, 5vw, 24px);
+    scroll-margin-top: 72px;
+  }
+  #s-contact .head {
+    margin-bottom: 16px;
+  }
+  #s-contact .heading {
+    margin-bottom: 28px;
   }
   .contact-display-title {
-    font-size: 12vw;
+    font-size: clamp(34px, 10vw, 68px);
   }
   .contact-display-title::before {
-    bottom: -2vw;
+    bottom: -8px;
+    height: 2px;
     width: 100%;
+  }
+  #s-contact .quote {
+    margin-bottom: 36px;
+  }
+  #s-contact .quote p {
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.5;
+  }
+  #s-contact .locations {
+    margin-bottom: 40px;
   }
   #s-contact .location {
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: auto;
-    padding: 4vw 0;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(16, 15, 15, 0.12);
   }
   #s-contact .location .f-8 {
-    width: 100%;
+    width: auto;
     height: auto;
     line-height: normal;
-    margin-bottom: 2vw;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+  #s-contact .location::after {
+    top: 20px;
+    right: 4px;
+    font-size: 18px;
   }
   #s-contact .location li:first-child {
     height: auto;
     line-height: normal;
-    margin-bottom: 2vw;
-    font-size: 4.5vw;
+    font-size: 19px;
+    font-weight: 500;
   }
-  #s-contact .location li {
-    font-size: 3.5vw;
+  #s-contact .location li:not(:first-child) {
+    display: none;
+  }
+  #s-contact .location.is-active li:not(:first-child) {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  #s-contact .location li a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .claude-pilot-section {
+    margin-top: 36px;
+    padding: clamp(20px, 4vw, 32px) clamp(16px, 3.5vw, 24px);
+    border-radius: 16px;
   }
   .claude-pilot-grid {
     grid-template-columns: 1fr;
-    gap: 8vw;
+    gap: 28px;
+  }
+  .claude-pilot-heading {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+  .claude-pilot-sub {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .claude-pilot-box {
+    padding: clamp(18px, 4vw, 28px) clamp(14px, 3vw, 20px);
+    border-radius: 12px;
   }
   .form-row {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .claude-input, .claude-select {
+    font-size: 16px; /* Stop iOS Safari zoom on focus */
+    padding: 13px 14px;
+    min-height: 48px;
+  }
+  .claude-submit-btn {
+    min-height: 50px;
+    font-size: 15px;
+  }
+  .checkbox-row {
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .checkbox-row input {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -1068,28 +1193,289 @@ a {
 }
 
 #a-footer li {
-  font-size: 0.972vw;
+  font-size: clamp(12px, 0.972vw, 14px);
 }
 
 #a-footer button {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 0.972vw;
+  font-size: clamp(12px, 0.972vw, 14px);
   font-weight: 500;
   color: var(--ink-color);
   cursor: pointer;
   padding: 0;
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 640px) {
   #a-footer {
-    margin: 16vw 8.33vw 8vw;
+    margin: 48px clamp(16px, 5vw, 24px) 32px;
+    padding-top: 20px;
   }
-  #a-footer li {
-    font-size: 3.2vw;
+  #a-footer ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
   }
-  #a-footer button {
-    font-size: 3.2vw;
+  #a-footer li, #a-footer button {
+    font-size: 13px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   Fullscreen Player / Workflow Modal (.player-modal-*)
+   ========================================================================== */
+.player-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  background: #100f0f;
+  color: #fcf6f4;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.player-modal-header {
+  padding: clamp(16px, 2.5vw, 36px) clamp(16px, 6.25vw, 80px) clamp(12px, 1.5vw, 24px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(252, 246, 244, 0.08);
+  position: sticky;
+  top: 0;
+  background: rgba(16, 15, 15, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 10;
+}
+
+.player-modal-back-btn {
+  background: none;
+  border: none;
+  color: #fcf6f4;
+  font-family: inherit;
+  font-size: clamp(14px, 1.1vw, 18px);
+  cursor: pointer;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+.player-modal-category {
+  opacity: 0.6;
+}
+
+.player-modal-viewport {
+  width: calc(100% - clamp(32px, 12.5vw, 160px));
+  max-width: 1400px;
+  margin: 24px auto 0 auto;
+  height: clamp(260px, 58vh, 720px);
+  background: #141414;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.player-modal-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.player-modal-viewport-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(24px, 4vw, 40px) clamp(20px, 3vw, 30px) clamp(16px, 2vw, 24px);
+  background: linear-gradient(180deg, transparent 0%, rgba(16, 15, 15, 0.92) 100%);
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.player-modal-cat-tag {
+  opacity: 0.7;
+  color: #fcf6f4;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.player-modal-title {
+  margin: 0;
+  color: #ffffff;
+}
+
+.player-modal-roi-badge {
+  background: rgba(252, 246, 244, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: clamp(12px, 1vw, 13px);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  white-space: nowrap;
+}
+
+.player-modal-body {
+  width: calc(100% - clamp(32px, 12.5vw, 160px));
+  max-width: 1400px;
+  margin: clamp(28px, 4vw, 56px) auto clamp(48px, 8vw, 100px) auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(24px, 6vw, 80px);
+}
+
+.player-modal-meta-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.player-modal-meta-list strong {
+  display: block;
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.player-modal-forms {
+  font-size: 13px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.player-modal-section {
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+.player-modal-section h3 {
+  opacity: 0.5;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.player-modal-section p {
+  opacity: 0.9;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.player-modal-benefits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.player-modal-benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
+.player-modal-check {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.player-modal-cta-wrap {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.player-modal-cta-btn {
+  background: #fcf6f4;
+  color: #100f0f;
+  border: none;
+  padding: 16px 32px;
+  font-family: inherit;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-modal-cta-btn:active {
+  transform: scale(0.98);
+}
+
+.player-modal-guarantee {
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 768px) {
+  .player-modal-viewport {
+    width: calc(100% - 32px);
+    margin-top: 16px;
+    height: clamp(220px, 42vh, 320px);
+    border-radius: 10px;
+  }
+  .player-modal-viewport-overlay {
+    padding: 20px 16px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .player-modal-roi-badge {
+    align-self: flex-start;
+  }
+  .player-modal-body {
+    width: calc(100% - 32px);
+    margin: 24px auto 60px auto;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .player-modal-cta-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .player-modal-cta-btn {
+    width: 100%;
+  }
+  .player-modal-guarantee {
+    text-align: center;
+    font-size: 11px;
   }
 }

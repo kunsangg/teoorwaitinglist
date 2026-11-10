@@ -184,6 +184,7 @@ const WorkflowBlock: React.FC<WorkflowBlockProps> = ({ item, onSelect }) => {
             {item.title}
           </h3>
           <p className="desc">{item.context}</p>
+          <span className="mobile-tap-hint">Explore Case Study →</span>
         </div>
       </a>
     </div>
