@@ -184,9 +184,9 @@ export const REGIONAL_LEADS: RegionalLead[] = [
     leadName: 'Kunsang Dorjay',
     leadTitle: 'Founder & India Lead',
     entity: 'Teeor Technologies',
-    address: 'DLF Cyber City, Phase III & Indiranagar',
-    city: 'Gurugram / Bengaluru, India',
-    phone: '+91 98710 23490',
+    address: 'Darjeeling, West Bengal',
+    city: 'Darjeeling, West Bengal, India',
+    phone: '+91 82503 41785',
     email: 'kunsang@teeor.com',
     focus: 'Core AI Agent Engine, GSTN/GSP Connectors & CA Firm Relations'
   },
@@ -196,9 +196,9 @@ export const REGIONAL_LEADS: RegionalLead[] = [
     leadName: 'Luthfi',
     leadTitle: 'Regional Lead · Indonesia',
     entity: 'Teeor SEA Operations',
-    address: 'Sudirman Central Business District (SCBD)',
-    city: 'Jakarta Selatan 12190, Indonesia',
-    phone: '+62 21 515 9021',
+    address: 'Jakarta, Indonesia',
+    city: 'Jakarta, Indonesia',
+    phone: '+62 87834568586',
     email: 'luthfi@teeor.com',
     focus: 'Coretax E-Invoicing Rollout & Indonesian Konsultan Pajak Partnerships'
   }

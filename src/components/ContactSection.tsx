@@ -86,15 +86,15 @@ export const ContactSection: React.FC = () => {
           <p className="f-8">India — HQ</p>
           <ul>
             <li>Kunsang Dorjay</li>
-            <li>DLF Cyber City, Gurugram & Bengaluru</li>
+            <li>Darjeeling, West Bengal</li>
             <li>
               <a href="mailto:kunsang@teeor.com" onClick={(e) => e.stopPropagation()}>
                 kunsang@teeor.com
               </a>
             </li>
             <li>
-              <a href="tel:+919871023490" onClick={(e) => e.stopPropagation()}>
-                +91 98710 23490
+              <a href="tel:+918250341785" onClick={(e) => e.stopPropagation()}>
+                +91 82503 41785
               </a>
             </li>
           </ul>
@@ -107,15 +107,15 @@ export const ContactSection: React.FC = () => {
           <p className="f-8">Indonesia — SEA</p>
           <ul>
             <li>Luthfi</li>
-            <li>SCBD, Jakarta Selatan, Indonesia</li>
+            <li>Jakarta, Indonesia</li>
             <li>
               <a href="mailto:luthfi@teeor.com" onClick={(e) => e.stopPropagation()}>
                 luthfi@teeor.com
               </a>
             </li>
             <li>
-              <a href="tel:+62215159021" onClick={(e) => e.stopPropagation()}>
-                +62 21 515 9021
+              <a href="tel:+6287834568586" onClick={(e) => e.stopPropagation()}>
+                +62 87834568586
               </a>
             </li>
           </ul>
