@@ -3,6 +3,8 @@ import confetti from 'canvas-confetti';
 
 export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [activeLocation, setActiveLocation] = useState<string | null>('india');
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -15,6 +17,9 @@ export const ContactSection: React.FC = () => {
     software: 'Tally Prime',
     agreeTerms: true
   });
+
+  // Honeypot field for basic spam protection
+  const [honeypot, setHoneypot] = useState('');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,17 +39,50 @@ export const ContactSection: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email || !formData.whatsapp) return;
+    if (isSubmitting) return; // prevent double-submit
 
-    confetti({
-      particleCount: 90,
-      spread: 75,
-      origin: { y: 0.6 }
-    });
+    setIsSubmitting(true);
+    setError(null);
 
-    setSubmitted(true);
+    try {
+      const res = await fetch('/api/ca-firm-pilot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          partnerName: formData.partnerName,
+          firmName: formData.firmName,
+          email: formData.email,
+          whatsapp: formData.whatsapp,
+          clientCount: formData.clientCount,
+          software: formData.software,
+          agreeTerms: formData.agreeTerms,
+          _honeypot: honeypot,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || 'Something went wrong. Please try again.');
+      }
+
+      // Only celebrate on real success
+      confetti({
+        particleCount: 90,
+        spread: 75,
+        origin: { y: 0.6 }
+      });
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      setError(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -167,6 +205,35 @@ export const ContactSection: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="claude-form">
+                {/* Honeypot field — hidden from humans, traps bots */}
+                <div style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
+                  <label htmlFor="company_url">Company URL</label>
+                  <input
+                    type="text"
+                    id="company_url"
+                    name="company_url"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
+
+                {error && (
+                  <div style={{
+                    background: 'rgba(239,68,68,0.12)',
+                    border: '1px solid rgba(239,68,68,0.3)',
+                    borderRadius: '8px',
+                    padding: '12px 16px',
+                    marginBottom: '16px',
+                    color: '#fca5a5',
+                    fontSize: '14px',
+                    lineHeight: 1.5,
+                  }}>
+                    {error}
+                  </div>
+                )}
+
                 <div className="form-row">
                   <div className="input-group">
                     <label className="field-label">Partner name *</label>
@@ -259,8 +326,8 @@ export const ContactSection: React.FC = () => {
                   </label>
                 </div>
 
-                <button type="submit" className="claude-submit-btn">
-                  <span>Apply for the pilot</span>
+                <button type="submit" className="claude-submit-btn" disabled={isSubmitting} style={isSubmitting ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>
+                  <span>{isSubmitting ? 'Submitting…' : 'Apply for the pilot'}</span>
                 </button>
               </form>
             )}
