@@ -181,8 +181,8 @@ export const REGIONAL_LEADS: RegionalLead[] = [
   {
     country: 'India',
     regionRole: 'HQ & Global Product',
-    leadName: 'Kunsang Dorjay',
-    leadTitle: 'Founder & India Lead',
+    leadName: 'Kunsang Dorjay & Ayush Khati (CTO)',
+    leadTitle: 'Leadership · India HQ',
     entity: 'Teeor Technologies',
     address: 'Darjeeling, West Bengal',
     city: 'Darjeeling, West Bengal, India',

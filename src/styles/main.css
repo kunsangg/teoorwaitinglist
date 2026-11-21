@@ -337,6 +337,28 @@ a {
   font-size: 1vw;
 }
 
+#h-hero .bottom-l .hero-member {
+  margin-bottom: 0.8vw;
+}
+
+#h-hero .bottom-l .hero-member:last-of-type {
+  margin-bottom: 1.8vw;
+}
+
+#h-hero .bottom-l .hero-member h1 {
+  margin: 0 0 0.25vw 0;
+}
+
+#h-hero .bottom-l .hero-member p {
+  margin: 0;
+}
+
+#h-hero .bottom-l .hero-role {
+  font-size: 0.9vw;
+  opacity: 0.72;
+  letter-spacing: -0.01em;
+}
+
 #h-hero .bottom-l .f-5 {
   margin: 0;
 }
@@ -495,6 +517,18 @@ a {
   #h-hero .bottom-l p {
     font-size: clamp(13px, 3.6vw, 15px);
     margin-bottom: 20px;
+  }
+  #h-hero .bottom-l .hero-member {
+    margin-bottom: 12px;
+  }
+  #h-hero .bottom-l .hero-member:last-of-type {
+    margin-bottom: 20px;
+  }
+  #h-hero .bottom-l .hero-member p {
+    margin-bottom: 0;
+  }
+  #h-hero .bottom-l .hero-role {
+    font-size: clamp(12px, 3.2vw, 13px);
   }
   #h-hero .bottom-l .f-5 {
     font-size: clamp(26px, 7.5vw, 40px);

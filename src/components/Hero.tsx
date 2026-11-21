@@ -3,14 +3,20 @@ import React from 'react';
 export const Hero: React.FC = () => {
   return (
     <header id="h-hero">
-      {/* Left Column: Founder & Vision */}
+      {/* Left Column: Leadership & Vision */}
       <div className="bottom-l intro-hero-left">
-        <h1>Kunsang Dorjay</h1>
-        <p>
-          <a href="mailto:kunsang@teeor.com" target="_blank" rel="noreferrer">
-            kunsang@teeor.com
-          </a>
-        </p>
+        <div className="hero-member">
+          <h1>Kunsang Dorjay</h1>
+          <p>
+            <a href="mailto:kunsang@teeor.com" target="_blank" rel="noreferrer">
+              kunsang@teeor.com
+            </a>
+          </p>
+        </div>
+        <div className="hero-member">
+          <h1>Ayush Khati</h1>
+          <p className="hero-role">Chief Technology Officer</p>
+        </div>
         <h2 className="f-5">
           Next-Gen
           <br />

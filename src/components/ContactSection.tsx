@@ -123,7 +123,8 @@ export const ContactSection: React.FC = () => {
         >
           <p className="f-8">India — HQ</p>
           <ul>
-            <li>Kunsang Dorjay</li>
+            <li>Kunsang Dorjay · Founder</li>
+            <li>Ayush Khati · CTO</li>
             <li>Darjeeling, West Bengal</li>
             <li>
               <a href="mailto:kunsang@teeor.com" onClick={(e) => e.stopPropagation()}>
