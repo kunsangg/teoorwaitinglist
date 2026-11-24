@@ -7,11 +7,7 @@ export const Hero: React.FC = () => {
       <div className="bottom-l intro-hero-left">
         <div className="hero-member">
           <h1>Kunsang Dorjay</h1>
-          <p>
-            <a href="mailto:kunsang@teoor.com" target="_blank" rel="noreferrer">
-              kunsang@teoor.com
-            </a>
-          </p>
+          <p className="hero-role">Chief Executive Officer</p>
         </div>
         <div className="hero-member">
           <h1>Ayush Khati</h1>
