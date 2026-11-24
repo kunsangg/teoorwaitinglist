@@ -74,7 +74,7 @@ export const PlayerModal: React.FC<PlayerModalProps> = ({ workflow, onClose, onA
             </li>
             <li>
               <strong className="f-8">Architecture</strong>
-              <span className="f-6">Autonomous Multi-Agent · Human in the loop</span>
+              <span className="f-6">Rules-First Engine · Human-in-the-Loop Review</span>
             </li>
             {capability?.forms && (
               <li>
@@ -97,7 +97,7 @@ export const PlayerModal: React.FC<PlayerModalProps> = ({ workflow, onClose, onA
           </div>
 
           <div className="player-modal-section">
-            <h3 className="f-8">How the Teeor Agent Solves It</h3>
+            <h3 className="f-8">How the Teoor Agent Solves It</h3>
             <p className="f-6">
               {capability?.howItFixesThat || capability?.howToolWorks || workflow.context}
             </p>
@@ -119,10 +119,10 @@ export const PlayerModal: React.FC<PlayerModalProps> = ({ workflow, onClose, onA
 
           <div className="player-modal-cta-wrap">
             <button onClick={onApplyPilot} className="player-modal-cta-btn">
-              Reserve 30-Day Pilot →
+              Apply for CA Close Pilot →
             </button>
             <span className="f-8 player-modal-guarantee">
-              100% Free · 10 Firms Only · Zero Software Change
+              Structured Monthly Close Pilot · Up to 5 Client GSTINs · Zero Migration
             </span>
           </div>
         </div>

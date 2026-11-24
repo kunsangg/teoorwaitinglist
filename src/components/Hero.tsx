@@ -8,8 +8,8 @@ export const Hero: React.FC = () => {
         <div className="hero-member">
           <h1>Kunsang Dorjay</h1>
           <p>
-            <a href="mailto:kunsang@teeor.com" target="_blank" rel="noreferrer">
-              kunsang@teeor.com
+            <a href="mailto:kunsang@teoor.com" target="_blank" rel="noreferrer">
+              kunsang@teoor.com
             </a>
           </p>
         </div>
@@ -18,9 +18,9 @@ export const Hero: React.FC = () => {
           <p className="hero-role">Chief Technology Officer</p>
         </div>
         <h2 className="f-5">
-          Next-Gen
+          GST
           <br />
-          Taxation
+          Operations
           <br />
           2026
         </h2>
@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
               fontSize="140"
               letterSpacing="-0.07em"
             >
-              teeor
+              teoor
             </text>
           </svg>
         </div>
@@ -48,15 +48,15 @@ export const Hero: React.FC = () => {
         <div className="bottom-r intro-hero-right">
           <h3 className="f-7">
             <div className="line">
-              <div>(teeor)</div>
+              <div>(teoor)</div>
             </div>
           </h3>
           <p>
-            AI agents that do the GST reconciliation
+            From reconciliation to resolution.
             <br />
-            and notice work for accounting firms.
+            The multi-client GST operations workspace
             <br />
-            India first, then Southeast Asia and beyond.
+            built for Indian Chartered Accountant firms.
           </p>
         </div>
       </div>

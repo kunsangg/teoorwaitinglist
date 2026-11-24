@@ -12,49 +12,49 @@ export interface WorkflowItem {
 const WORKFLOWS: WorkflowItem[] = [
   {
     id: 'gst-recon',
-    category: 'Agent Engine (01)',
-    title: 'Autonomous Reconciliation',
-    context: 'Matches thousands of purchase invoices against GSTR-2B; tolerates typos, date shifts & split lines to recover blocked Input Tax Credit.',
+    category: 'Core Engine (01)',
+    title: 'Rules-First Reconciliation',
+    context: 'Matches purchase registers against GSTR-2B using deterministic rules and explainable fuzzy suggestions with 100% row accounting.',
     layoutClass: 'l-d',
     videoUrl: '/videos/gst-recon.mp4'
   },
   {
     id: 'notice-defense',
-    category: 'Legal Workflow (02)',
-    title: 'DRC-01C & ASMT-10 Defense',
-    context: 'Reads automated scrutiny notices, extracts discrepancy tables, and drafts statutory replies citing Section 16(2)(aa) circulars.',
+    category: 'Notice Workspace (02)',
+    title: 'DRC-01C & ASMT-10 Intelligence',
+    context: 'Connects historical reconciliations, supplier filings, and statutory circulars into structured, CA-reviewed response drafts.',
     layoutClass: 'l-c',
     videoUrl: '/videos/notice-defense.mp4'
   },
   {
     id: 'vendor-chaser',
-    category: 'Communication (03)',
-    title: 'Automated Vendor Chaser',
-    context: 'One-click WhatsApp & email follow-ups to delinquent suppliers with missing invoice details so client ITC is never blocked.',
+    category: 'Resolution Loop (03)',
+    title: 'Vendor Follow-Up Queue',
+    context: 'Generates vendor-wise discrepancy summaries and approved message drafts to close missing invoice exceptions without phone chaos.',
     layoutClass: 'l-c',
     videoUrl: '/videos/vendor-chaser.mp4'
   },
   {
     id: 'partner-hub',
-    category: 'Firm Operations (04)',
-    title: 'Multi-Client Practice Hub',
-    context: 'Central dashboard across 50 to 500 client GSTINs: total credit at risk, trainee task queues, and open notice deadlines in one view.',
+    category: 'Practice Operations (04)',
+    title: 'Multi-Client Partner Radar',
+    context: 'Firm-wide visibility across 50 to 300+ client GST registrations: open exception values, case ageing, and maker-checker audit trails.',
     layoutClass: 'l-b',
     videoUrl: '/videos/partner-hub.mp4'
   },
   {
     id: 'accounting-sync',
     category: 'Data Pipeline (05)',
-    title: 'Accounting Sync & OCR',
-    context: 'Ingests Tally Prime XML, Zoho Books, Busy, and Indian tax OCR for messy paper bills & WhatsApp camera photos.',
+    title: 'Source-Neutral Data Intake',
+    context: 'Guided ingestion for Tally, Zoho, and Excel/CSV registers with custom column mapping and row validation before matching.',
     layoutClass: 'l-b',
     videoUrl: '/videos/accounting-sync.mp4'
   },
   {
     id: 'global-rules',
-    category: 'Global Engine (06)',
-    title: 'Plug-in Country Rules',
-    context: 'Universal matching engine with localized packs: India GST beachhead, and Indonesia Coretax e-Faktur led on the ground by Luthfi.',
+    category: 'Core Architecture (06)',
+    title: 'Modular Rules Architecture',
+    context: 'India-first GST operations foundation decoupled from jurisdiction-specific rules for future regional e-invoicing expansion.',
     layoutClass: 'l-d',
     videoUrl: '/videos/global-rules.mp4'
   }

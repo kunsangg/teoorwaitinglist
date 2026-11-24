@@ -101,17 +101,17 @@ export const ContactSection: React.FC = () => {
       <div className="quote reveal-up">
         <div>
           <h3 className="f-4">
-            The tax department
+            Reconciliation is only
             <br />
-            automated scrutiny.
+            half the battle.
             <br />
-            Firms shouldn't fight
+            Resolution is where
             <br />
-            it with spreadsheets.
+            firms win.
           </h3>
         </div>
-        <p className="f-8" style={{ opacity: 0.75, maxWidth: '480px', marginTop: '1vw' }}>
-          We are onboarding 10 pilot CA firms for our 30-day free trial (up to 10 clients reconciled with full notice defense).
+        <p className="f-8" style={{ opacity: 0.75, maxWidth: '520px', marginTop: '1vw' }}>
+          Teoor helps CA firms reconcile GSTR-2B against Purchase Registers and close resulting exceptions — with clear ownership, vendor follow-ups, and reviewable evidence across all clients.
         </p>
       </div>
 
@@ -127,8 +127,8 @@ export const ContactSection: React.FC = () => {
             <li>Ayush Khati · CTO</li>
             <li>Darjeeling, West Bengal</li>
             <li>
-              <a href="mailto:kunsang@teeor.com" onClick={(e) => e.stopPropagation()}>
-                kunsang@teeor.com
+              <a href="mailto:kunsang@teoor.com" onClick={(e) => e.stopPropagation()}>
+                kunsang@teoor.com
               </a>
             </li>
             <li>
@@ -148,8 +148,8 @@ export const ContactSection: React.FC = () => {
             <li>Luthfi</li>
             <li>Jakarta, Indonesia</li>
             <li>
-              <a href="mailto:luthfi@teeor.com" onClick={(e) => e.stopPropagation()}>
-                luthfi@teeor.com
+              <a href="mailto:luthfi@teoor.com" onClick={(e) => e.stopPropagation()}>
+                luthfi@teoor.com
               </a>
             </li>
             <li>
@@ -167,24 +167,24 @@ export const ContactSection: React.FC = () => {
           {/* Left Context Column */}
           <div className="claude-pilot-left">
             <h3 className="claude-pilot-heading">
-              Reserve 30-day pilot
+              Apply for CA Close Pilot
             </h3>
             <p className="claude-pilot-sub">
-              Join 10 pioneer CA firms getting full autonomous GST reconciliation and scrutiny notice defense. 100% free for 30 days, up to 10 clients.
+              Run one monthly Purchase Register vs GSTR-2B cycle for up to 5 client GST registrations with file validation, exception resolution, and reviewer controls.
             </p>
 
             <div className="claude-pilot-features">
               <div className="feature-item">
                 <span className="dot" />
-                <span>Zero software change: ingests Tally & Excel dumps directly</span>
+                <span>Source-neutral: Ingests Tally, Zoho & custom Excel dumps with zero migration</span>
               </div>
               <div className="feature-item">
                 <span className="dot" />
-                <span>100% Human-in-the-loop: Nothing filed without CA approval</span>
+                <span>100% Human-in-the-loop: Explainable matches, maker-checker sign-offs</span>
               </div>
               <div className="feature-item">
                 <span className="dot" />
-                <span>In-country hosting compliant with India's DPDP Act</span>
+                <span>Enterprise trust: Complete tenant isolation and DPDP Act compliance</span>
               </div>
             </div>
           </div>
@@ -201,7 +201,7 @@ export const ContactSection: React.FC = () => {
                   Thank you, <strong>{formData.partnerName || 'Partner'}</strong>. We have allocated Priority Slot #TE-104 for <strong>{formData.firmName || 'your firm'}</strong>.
                 </p>
                 <div className="whatsapp-notice">
-                  Kunsang Dorjay will reach out via WhatsApp at <strong>{formData.whatsapp}</strong> within 24 hours.
+                  Founder Kunsang Dorjay will reach out via WhatsApp at <strong>{formData.whatsapp}</strong> within 24 hours to schedule discovery and workflow walkthrough.
                 </div>
               </div>
             ) : (
@@ -323,7 +323,7 @@ export const ContactSection: React.FC = () => {
                     required
                   />
                   <label htmlFor="pilot-agree">
-                    I agree to participate in Teeor's 30-day pilot program for up to 10 clients. *
+                    I agree to participate in Teoor's structured monthly close pilot for up to 5 GST registrations. *
                   </label>
                 </div>
 
